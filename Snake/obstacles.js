@@ -59,27 +59,3 @@ class Fruit {
 		}
 	}
 }
-
-
-
-class Coordinate {
-	constructor(x, y) {
-		this.x = x;
-		this.y = y;
-	}
-
-	distTo(point) {
-		if (point) {
-			if (typeof Math.hypot === "function") {
-				return Math.hypot(point.x - this.x, point.y - this.y);
-			} else {
-				// maybe provide another implementation
-			}
-		}
-	}
-
-	copy() {
-		return new Coordinate(this.x, this.y);
-	}
-
-}

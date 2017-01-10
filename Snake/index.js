@@ -111,20 +111,21 @@ function random(min, max) {
 		// from 0 to max --> argument min is max
 		return Math.random() * min;
 	} else {
-		// TODO Random from min to max
+		// Random value between min to max
+		return Math.random() * (max - min) + min;
 	}
 }
 
-class Coordinate {
+class Point {
 	constructor(x, y) {
 		this.x = x;
 		this.y = y;
 	}
 
-	distTo(point) {
-		if (point) {
+	distTo(p) {
+		if (p) {
 			if (typeof Math.hypot === "function") {
-				return Math.hypot(point.x - this.x, point.y - this.y);
+				return Math.hypot(p.x - this.x, p.y - this.y);
 			} else {
 				// maybe provide another implementation
 			}
@@ -132,7 +133,7 @@ class Coordinate {
 	}
 
 	copy() {
-		return new Coordinate(this.x, this.y);
+		return new Point(this.x, this.y);
 	}
 
 }

@@ -2,8 +2,8 @@ class Snake {
 	
 	constructor() {
 		this.bodyParts = [];
-		this.bodyParts.push(new Coordinate(WIDTH / 2 / GRID_SIZE, HEIGHT / 2 / GRID_SIZE));
-		this.bodyParts.push(new Coordinate(this.bodyParts[0].x + 1, HEIGHT / 2 / GRID_SIZE));
+		this.bodyParts.push(new Point(WIDTH / 2 / GRID_SIZE, HEIGHT / 2 / GRID_SIZE));
+		this.bodyParts.push(new Point(this.bodyParts[0].x + 1, HEIGHT / 2 / GRID_SIZE));
 		this.direction = "DOWN";
 		this.locked = false;
 		this.color = "#000000";
@@ -75,8 +75,8 @@ class Snake {
 		return false;
 	}
 
-	intersects(coordinate) {
-		return Math.round(this.bodyParts[0].distTo(coordinate)) === 0;
+	intersects(point) {
+		return Math.round(this.bodyParts[0].distTo(point)) === 0;
 	}
 
 	grow() {

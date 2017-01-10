@@ -3,7 +3,7 @@ class Border {
 		var x = random(WIDTH / GRID_SIZE);
 		var y = random(HEIGHT / GRID_SIZE);
 
-		this.location = new Coordinate(x, y);
+		this.location = new Point(x, y);
 		this.size = GRID_SIZE;
 		this.color = randomColorString();
 	}
@@ -12,17 +12,17 @@ class Border {
 
 	}
 
-	intersects(coordinate) {
-		if (coordinate instanceof Array) {			
+	intersects(point) {
+		if (point instanceof Array) {			
 			
-			for (var i = 0; i < coordinate.length; i++) {
-				 if (Math.round(this.location.distTo(coordinate[i]) === 0))
+			for (var i = 0; i < point.length; i++) {
+				 if (Math.round(this.location.distTo(point[i]) === 0))
 				 	return true;
 			}
 
 			return false;
 		} else {
-			return Math.round(this.location.distTo(coordinate) === 0);
+			return Math.round(this.location.distTo(point) === 0);
 		}
 	}
 
@@ -33,7 +33,7 @@ class Fruit {
 		var x = Math.floor(random(WIDTH / GRID_SIZE));
 		var y = Math.floor(random(HEIGHT / GRID_SIZE));
 
-		this.location = new Coordinate(x, y);
+		this.location = new Point(x, y);
 		this.color = randomColorString();
 	}
 
@@ -45,17 +45,17 @@ class Fruit {
 		ctx.fillRect(x, y, GRID_SIZE, GRID_SIZE)
 	}
 
-	intersects(coordinate) {
-		if (coordinate instanceof Array) {			
+	intersects(point) {
+		if (point instanceof Array) {			
 			
-			for (var i = 0; i < coordinate.length; i++) {
-				 if (Math.round(this.location.distTo(coordinate[i]) === 0))
+			for (var i = 0; i < point.length; i++) {
+				 if (Math.round(this.location.distTo(point[i]) === 0))
 				 	return true;
 			}
 
 			return false;
 		} else {
-			return Math.round(this.location.distTo(coordinate) === 0);
+			return Math.round(this.location.distTo(point) === 0);
 		}
 	}
 }

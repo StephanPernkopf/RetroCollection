@@ -7,7 +7,6 @@ var GRID_SIZE = 10;
 var HEIGHT = 100;
 var WIDTH = 100;
 var SPEED = 50;
-var RANDOM_LIMIT = 9900;
 
 var PAUSE = false;
 var FRUITS = [];
@@ -78,7 +77,8 @@ function addFruit() {
 	while(fruit.intersects(SNAKE.bodyParts)) {
 		fruit = new Fruit;
 	}
-	FRUITS.push(new Fruit);
+	
+	FRUITS.push(fruit);
 }
 
 function clearScreen() {

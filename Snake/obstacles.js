@@ -16,13 +16,13 @@ class Border {
 		if (point instanceof Array) {			
 			
 			for (var i = 0; i < point.length; i++) {
-				 if (Math.round(this.location.distTo(point[i]) === 0))
+				 if (Math.floor(this.location.distTo(point[i]) === 0))
 				 	return true;
 			}
 
 			return false;
 		} else {
-			return Math.round(this.location.distTo(point) === 0);
+			return Math.floor(this.location.distTo(point) === 0);
 		}
 	}
 
@@ -49,13 +49,14 @@ class Fruit {
 		if (point instanceof Array) {			
 			
 			for (var i = 0; i < point.length; i++) {
-				 if (Math.round(this.location.distTo(point[i]) === 0))
-				 	return true;
+				 if (Math.floor(this.location.distTo(point[i]) === 0)) {
+					 return true;
+				 }
 			}
 
 			return false;
 		} else {
-			return Math.round(this.location.distTo(point) === 0);
+			return Math.floor(this.location.distTo(point) === 0);
 		}
 	}
 }

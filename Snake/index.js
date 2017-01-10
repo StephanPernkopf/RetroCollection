@@ -13,13 +13,15 @@ var PAUSE = false;
 var FRUITS = [];
 var SNAKE;
 var SCORE = 0;
+var sc;
 
 window.onload = function () {
 	canvas = document.getElementById("snake");
+	sc = document.getElementById("score");
 	ctx = canvas.getContext("2d");
 
-	WIDTH = Math.round(canvas.width);
-	HEIGHT = Math.round(canvas.height);	
+	WIDTH = Math.floor(canvas.width);
+	HEIGHT = Math.floor(canvas.height);	
 
 	window.onkeydown = gameController;
 	init();
@@ -46,7 +48,7 @@ function loop() {
 			if (SNAKE.intersects(FRUITS[i].location)) {
 				SNAKE.grow();
 				FRUITS.splice(i, 1);
-				increaseScore();
+				increaseScore();				
 			}
 		}
 
@@ -68,6 +70,7 @@ function increaseScore(inc) {
 	} else {
 		SCORE += 5;
 	}
+	sc.innerHTML = "SCORE = " + SCORE;
 }
 
 function addFruit() {

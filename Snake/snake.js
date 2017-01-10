@@ -67,7 +67,7 @@ class Snake {
 
 	collided() {
 		for (var i = 1; i < this.bodyParts.length; i++) {
-			if (Math.round(this.bodyParts[0].distTo(this.bodyParts[i])) === 0) {
+			if (Math.floor(this.bodyParts[0].distTo(this.bodyParts[i])) === 0) {
 				return true;
 			}
 		}
@@ -76,7 +76,7 @@ class Snake {
 	}
 
 	intersects(point) {
-		return Math.round(this.bodyParts[0].distTo(point)) === 0;
+		return Math.floor(this.bodyParts[0].distTo(point)) === 0;
 	}
 
 	grow() {

@@ -1,0 +1,21 @@
+RetroCollection
+|-- games
+|	|-- snake
+|	|	|-- main_snake.js
+|	|	|-- snake.js
+|	|	`-- obstacles.js
+|	|-- invaders
+|	|	|-- main_invaders.js
+|	|	|-- enemies.js
+|	|	|-- player.js
+|	|	`-- space.js
+|	`-- menu.js
+|-- lib
+|	`-- mathLib.js
+|-- styles
+|	`-- layout.css
+|-- .gitignore
+|-- folderStructure.txt
+|-- index.html
+|-- index.js
+`-- README.md

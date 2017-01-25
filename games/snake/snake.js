@@ -1,5 +1,4 @@
 class Snake {
-	
 	constructor() {
 		this.bodyParts = [];
 		this.bodyParts.push(new Point(WIDTH / 2 / GRID_SIZE, HEIGHT / 2 / GRID_SIZE));
@@ -88,8 +87,8 @@ class Snake {
 			var x = this.bodyParts[i].x * GRID_SIZE;
 			var y = this.bodyParts[i].y * GRID_SIZE;
 			
-			ctx.fillStyle = this.color;
-			ctx.fillRect(x,	y, GRID_SIZE, GRID_SIZE);
+			CTX.fillStyle = this.color;
+			CTX.fillRect(x,	y, GRID_SIZE, GRID_SIZE);
 		}
 	}
 }

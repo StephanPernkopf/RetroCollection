@@ -41,8 +41,8 @@ class Fruit {
 		var x = this.location.x * GRID_SIZE;
 		var y = this.location.y * GRID_SIZE;
 
-		ctx.fillStyle = this.color;
-		ctx.fillRect(x, y, GRID_SIZE, GRID_SIZE)
+		CTX.fillStyle = this.color;
+		CTX.fillRect(x, y, GRID_SIZE, GRID_SIZE)
 	}
 
 	intersects(point) {

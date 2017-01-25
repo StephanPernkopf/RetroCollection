@@ -5,7 +5,16 @@
 		<meta name="viewport" content="width-device-width" initial-scale=1>
 		<title>Retro Collection</title>
 		<link rel="stylesheet" href="styles/layout.css">
-		<script src="index.js" type="text/javascript"></script>
+		<script language="javascript" type="text/javascript" src="index.js"></script>
+
+		<!-- Libraries -->
+		<script language="javascript" type="text/javascript" src="lib/mathLib.js"></script>
+
+		<!-- Snake -->
+		<script language="javascript" type="text/javascript" src="games/snake/mainSnake.js"></script>
+		<script language="javascript" type="text/javascript" src="games/snake/snake.js"></script>
+		<script language="javascript" type="text/javascript" src="games/snake/obstacles.js"></script>
+
 	</head>
 
 	<body>
@@ -16,7 +25,7 @@
 		<div class="wrapper">
 			<div class="align-top"></div>
 			<canvas id="playground" width="960" height="720">Your browser doesn't support canvas.</canvas>
-			<!-- <div id="fps"></div> -->
+			<div id="score"></div>
 			<div class="align-bottom"></div>
 		</div>
 		<footer class="footer">

@@ -3,21 +3,7 @@ var DIRECTION_DOWN = 40;
 var DIRECTION_LEFT = 37;
 var DIRECTION_RIGHT = 39;
 
-var GRID_SIZE = 10;
-var SPEED = 50;
-
-// window.onload = function () {
-// 	canvas = document.getElementById("snake");
-// 	sc = document.getElementById("score");
-// 	CTX = canvas.getContext("2d");
-
-// 	WIDTH = Math.floor(canvas.width);
-// 	HEIGHT = Math.floor(canvas.height);	
-
-// 	window.onkeydown = gameController;
-// 	init();
-// 	setInterval(loop, SPEED);
-// }
+var GRID_SIZE = 12;
 
 class MainSnake {
 	constructor() {
@@ -38,7 +24,7 @@ class MainSnake {
 	}
 
 	loop() {
-		if (!this.pause) { // TODO: snakeTick
+		if (!this.pause && ((FRAME_COUNT * 9) % 2 === 0)) { // TODO: împrove snakeTick
 			this.snake.move();
 			
 			for (var i = this.fruits.length - 1; i >= 0; i--) {
@@ -66,8 +52,6 @@ class MainSnake {
 		for (var i = 0; i < this.fruits.length; i++) {
 			this.fruits[i].draw();
 		}
-
-
 	}
 
 	increaseScore(inc) {
@@ -93,16 +77,12 @@ class MainSnake {
 			this.snake.changeDirection("RIGHT");
 		}
 	}
-
-
 }
-
 
 function clearScreen() {
 	CTX.fillStyle = "white";
 	CTX.fillRect(0, 0, WIDTH, HEIGHT);
 }
-
 
 function randomColorString() {
 	var r = Math.floor(random(255));

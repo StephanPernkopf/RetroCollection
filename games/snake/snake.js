@@ -2,8 +2,8 @@ class Snake {
 	constructor() {
 		this.bodyParts = [];
 		this.bodyParts.push(new Point(WIDTH / 2 / GRID_SIZE, HEIGHT / 2 / GRID_SIZE));
-		this.bodyParts.push(new Point(this.bodyParts[0].x + 1, HEIGHT / 2 / GRID_SIZE));
-		this.direction = "DOWN";
+		this.bodyParts.push(new Point(this.bodyParts[0].x - 1, HEIGHT / 2 / GRID_SIZE));
+		this.direction = "RIGHT";
 		this.locked = false;
 		this.color = "#000000";
 	}

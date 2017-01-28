@@ -50,7 +50,7 @@ var MainSnake = (function() {
 		}
 	}
 
-	MainSnake.prototype.loop = function() {
+	MainSnake.prototype.update = function() {
 		if (!this.pause && ((FRAME_COUNT * 9) % 2 === 0)) { // TODO: improve snakeTick
 			snake.move();
 			
@@ -72,12 +72,14 @@ var MainSnake = (function() {
 				this.pause = true;
 			}
 		}
+	}
 
-		VisualLib.clearScreen(CTX);
-		snake.draw();
+	MainSnake.prototype.draw = function(context) {
+		VisualLib.clearScreen(context);
+		snake.draw(context);
 
 		for (var i = 0; i < fruits.length; i++) {
-			fruits[i].draw();
+			fruits[i].draw(context);
 		}
 	}
 

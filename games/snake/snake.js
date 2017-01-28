@@ -84,13 +84,13 @@ var Snake = (function(){
 		this.bodyParts.push(this.bodyParts[this.bodyParts.length - 1].copy());
 	}
 
-	Snake.prototype.draw = function() {
+	Snake.prototype.draw = function(context) {
 		for (var i = 0; i < this.bodyParts.length; i++) {
 			var x = this.bodyParts[i].x * GRID_SIZE;
 			var y = this.bodyParts[i].y * GRID_SIZE;
 		
-			CTX.fillStyle = this.color;
-			CTX.fillRect(x,	y, GRID_SIZE, GRID_SIZE);
+			context.fillStyle = this.color;
+			context.fillRect(x,	y, GRID_SIZE, GRID_SIZE);
 		}
 	}
 

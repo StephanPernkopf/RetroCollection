@@ -1,15 +1,16 @@
 var Border = (function(){
 	
 	Border = function() {
-		var x = Math.floor(MathLib.random(WIDTH / GRID_SIZE));
-		var y = Math.floor(MathLib.random(HEIGHT / GRID_SIZE));
+		// TODO: Set Position
+		// var x = Math.floor(MathLib.random(WIDTH / GRID_SIZE));
+		// var y = Math.floor(MathLib.random(HEIGHT / GRID_SIZE));
 
 		this.location = new MathLib.Point(x, y);
 		this.size = GRID_SIZE;
 		this.color = VisualLib.randomColorString();
 	}
 
-	Border.prototype.draw = function() {
+	Border.prototype.draw = function(context) {
 		// TODO: implement draw
 	}
 
@@ -40,12 +41,12 @@ var Fruit = (function() {
 		this.color = VisualLib.randomColorString();
 	}
 
-	Fruit.prototype.draw = function() {
+	Fruit.prototype.draw = function(context) {
 		var x = this.location.x * GRID_SIZE;
 		var y = this.location.y * GRID_SIZE;
 
-		CTX.fillStyle = this.color;
-		CTX.fillRect(x, y, GRID_SIZE, GRID_SIZE)
+		context.fillStyle = this.color;
+		context.fillRect(x, y, GRID_SIZE, GRID_SIZE)
 	}
 
 	Fruit.prototype.intersects = function(point) {

@@ -50,19 +50,21 @@ function loop() {
 		var currentFps = Math.round(1000 / (sinceStart / ++FRAME_COUNT) * 100) / 100;
 		FPS.innerHTML = "FPS = " + Math.round(currentFps);
 		// console.log(currentFps);
-		GAME.loop();
+		GAME.update();
+		GAME.draw(CTX);
 
 		// if (menu.visible) {
 		// 	menu.render();
 		// }
 	}
-	requestAnimationFrame(loop);	
+	requestAnimationFrame(loop);
 }
 
 function inputHandler(e) {
 	var key = e.keyCode ? e.which : e.keyCode;
-	if (key == 32) {
-
+	
+	if (key == 27) {
+		GAME.pause = !GAME.pause;
 	} else {
 		GAME.gameController(e);
 	}

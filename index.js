@@ -44,7 +44,7 @@ function loop() {
 		
 		var sinceStart = now - STARTTIME;
 		var currentFps = Math.round(1000 / (sinceStart / ++FRAME_COUNT) * 100) / 100;
-		console.log(currentFps);
+		// console.log(currentFps);
 		GAME.loop();
 
 		// if (menu.visible) {

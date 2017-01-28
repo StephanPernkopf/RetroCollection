@@ -4,6 +4,7 @@ var HEIGHT = 0;
 var CTX;
 var GAME;
 var SC;
+var FPS;
 
 var FPS_INTERVAL = 0;
 var LAST_DRAW_TIME = 0;
@@ -13,10 +14,13 @@ var FRAME_COUNT = 0;
 
 window.onload = function() {
 	var canvas = document.getElementById("playground");
-	SC = document.getElementById("score");
 	CTX = canvas.getContext("2d");
-	
+
+	SC = document.getElementById("score");
+	FPS = document.getElementById("fps");
+
 	SC.innerHTML = "SCORE = 0";
+	FPS.innerHTML = "FPS = 0";
 	WIDTH = Math.floor(canvas.width);
 	HEIGHT = Math.floor(canvas.height); 
 
@@ -44,6 +48,7 @@ function loop() {
 		
 		var sinceStart = now - STARTTIME;
 		var currentFps = Math.round(1000 / (sinceStart / ++FRAME_COUNT) * 100) / 100;
+		FPS.innerHTML = "FPS = " + Math.round(currentFps);
 		// console.log(currentFps);
 		GAME.loop();
 

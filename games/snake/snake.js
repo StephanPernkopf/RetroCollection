@@ -1,14 +1,16 @@
-class Snake {
-	constructor() {
+var Snake = (function(){
+	Snake = function() {
 		this.bodyParts = [];
-		this.bodyParts.push(new Point(WIDTH / 2 / GRID_SIZE, HEIGHT / 2 / GRID_SIZE));
-		this.bodyParts.push(new Point(this.bodyParts[0].x - 1, HEIGHT / 2 / GRID_SIZE));
+		var x = Math.floor(WIDTH / 2 / GRID_SIZE);
+		var y = Math.floor(HEIGHT / 2 / GRID_SIZE);
+		this.bodyParts.push(new MathLib.Point(x, y));
+		this.bodyParts.push(new MathLib.Point(this.bodyParts[0].x - 1, y));
 		this.direction = "RIGHT";
 		this.locked = false;
 		this.color = "#000000";
 	}
 
-	move() {
+	Snake.prototype.move = function() {
 		this.locked = false;
 		for (var i = this.bodyParts.length - 1; i > 0; i--) {
 			this.bodyParts[i] = this.bodyParts[i - 1].copy();
@@ -45,7 +47,7 @@ class Snake {
 		}
 	}
 
-	changeDirection(dir) {
+	Snake.prototype.changeDirection = function(dir) {
 		if (this.locked) return;
 
 		if (dir === "UP" && this.direction != "DOWN") {
@@ -64,7 +66,7 @@ class Snake {
 		this.locked = true;
 	}
 
-	collided() {
+	Snake.prototype.collided = function() {
 		for (var i = 1; i < this.bodyParts.length; i++) {
 			if (Math.floor(this.bodyParts[0].distTo(this.bodyParts[i])) === 0) {
 				return true;
@@ -74,23 +76,23 @@ class Snake {
 		return false;
 	}
 
-	intersects(point) {
+	Snake.prototype.intersects = function(point) {
 		return Math.floor(this.bodyParts[0].distTo(point)) === 0;
 	}
 
-	grow() {
+	Snake.prototype.grow = function() {
 		this.bodyParts.push(this.bodyParts[this.bodyParts.length - 1].copy());
 	}
 
-	draw() {
+	Snake.prototype.draw = function() {
 		for (var i = 0; i < this.bodyParts.length; i++) {
 			var x = this.bodyParts[i].x * GRID_SIZE;
 			var y = this.bodyParts[i].y * GRID_SIZE;
-			
+		
 			CTX.fillStyle = this.color;
 			CTX.fillRect(x,	y, GRID_SIZE, GRID_SIZE);
 		}
 	}
-}
 
-
+	return Snake;
+}());

@@ -26,13 +26,11 @@ var MainSnake = (function() {
 		fruits.push(fruit);
 	}
 
-	function increaseScore(inc) {
-		if (inc) {
-			score += inc;
-		} else {
+	function increaseScore(sc) {
+		if (sc) {
 			score += 5;
+			sc.innerHTML = "SCORE = " + score;
 		}
-		SC.innerHTML = "SCORE = " + score; // TODO: global SCORE-Variable
 	}
 
 	MainSnake.prototype.gameController = function(e) {
@@ -50,7 +48,7 @@ var MainSnake = (function() {
 		}
 	}
 
-	MainSnake.prototype.update = function() {
+	MainSnake.prototype.update = function(score) {
 		if (!this.pause && ((FRAME_COUNT * 9) % 2 === 0)) { // TODO: improve snakeTick
 			snake.move();
 			
@@ -58,7 +56,7 @@ var MainSnake = (function() {
 				if (snake.intersects(fruits[i].location)) {
 					snake.grow();
 					fruits.splice(i, 1);
-					increaseScore.call(this);				
+					increaseScore.call(this, score);				
 				}
 			}
 

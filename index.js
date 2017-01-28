@@ -50,7 +50,7 @@ function loop() {
 		var currentFps = Math.round(1000 / (sinceStart / ++FRAME_COUNT) * 100) / 100;
 		FPS.innerHTML = "FPS = " + Math.round(currentFps);
 		// console.log(currentFps);
-		GAME.update();
+		GAME.update(SC);
 		GAME.draw(CTX);
 
 		// if (menu.visible) {

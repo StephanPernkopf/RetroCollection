@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<meta name="viewport" content="width-device-width" initial-scale=1>
+		<meta name="viewport" content="width-device-width" initial-scale=1.0>
 		<title>Retro Collection</title>
 		<link rel="stylesheet" href="styles/layout.css">
 		<script language="javascript" type="text/javascript" src="index.js"></script>
@@ -24,8 +24,18 @@
 
 		<div class="wrapper">
 			<div class="align-top"></div>
+
 			<canvas id="playground" width="960" height="720">Your browser doesn't support canvas.</canvas>
-			<div id="score"></div>
+
+			<div class="hud">
+				<div class="hud-cell">
+					<p id="score"></p>
+				</div>
+				<div class="hud-cell">
+					<p id="fps"></p>
+				</div>
+			</div>
+
 			<div class="align-bottom"></div>
 		</div>
 		<footer class="footer">

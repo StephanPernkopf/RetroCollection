@@ -16,7 +16,7 @@ window.onload = function() {
 	SC = document.getElementById("score");
 	CTX = canvas.getContext("2d");
 	
-	SC.innerHTML = "SCORE = ";
+	SC.innerHTML = "SCORE = 0";
 	WIDTH = Math.floor(canvas.width);
 	HEIGHT = Math.floor(canvas.height); 
 

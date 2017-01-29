@@ -36,12 +36,6 @@ var MainSnake = (function() {
 		}
 	}
 
-	MainSnake.prototype.test = function() {
-		for (var i = 0; i < 50; i++) {
-			addFruit();
-		}
-	}
-
 	MainSnake.prototype.gameController = function(e) {
 		var key = e.keyCode ? e.keyCode : e.which;
 		if (key == 32) {//Space

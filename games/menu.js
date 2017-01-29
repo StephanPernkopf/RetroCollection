@@ -95,11 +95,9 @@ var Menu = (function(){
 		if (games[currGame] == "Snake")
 			GAME = new MainSnake();
 		else if (games[currGame] == "SpaceInvaders")
-			console.log("SpaceInvaders");
-			// GAME = new MainInvaders();
+			GAME = new Empty; // new MainInvaders();
 		else if (games[currGame] == "Test") 
-			console.log("Test");
-			// GAME = new MainTest();
+			GAME = new Empty; // new MainTest();
 		else
 			return false;
 		

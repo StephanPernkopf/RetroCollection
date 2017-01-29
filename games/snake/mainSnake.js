@@ -9,6 +9,7 @@ var MainSnake = (function() {
 	var snake;
 	var fruits = [];
 	var score = 0;
+	var gameOver = false;
 
 	MainSnake = function() {
 		this.pause = false;
@@ -49,7 +50,7 @@ var MainSnake = (function() {
 	}
 
 	MainSnake.prototype.update = function(score) {
-		if (!this.pause && ((FRAME_COUNT * 9) % 2 === 0)) { // TODO: improve snakeTick
+		if (!this.pause && !gameOver && ((FRAME_COUNT * 9) % 2 === 0)) { // TODO: improve snakeTick
 			snake.move();
 
 			for (var i = fruits.length - 1; i >= 0; i--) {
@@ -68,6 +69,7 @@ var MainSnake = (function() {
 				// TODO: GAME OVER
 				console.log("Game Over");
 				this.pause = true;
+				gameOver = true;
 			}
 		}
 	}

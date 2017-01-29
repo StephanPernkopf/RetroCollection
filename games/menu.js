@@ -1,5 +1,6 @@
 var Menu = (function(){
-	var games = ["Snake", "Space Invaders", "Platformer", "Test"];
+	var games = ["Snake", "Space Invaders", "Test"];
+	var count = 0;
 	positions = [];
 
 	Menu = function() {
@@ -85,14 +86,23 @@ var Menu = (function(){
 		this.location = new MathLib.Point(x, y);
 		this.width = w;
 		this.height = h;
+		this.img = new Image();
+		this.img.src = "games/preview/" + this.name + ".png";
+		this.img.onload = function() {
+			count++;
+		}
 	}
 
 	GameObject.prototype.render = function(context, color) {
 		if (context) {
-			context.fillStyle = color;
-			context.fillRect(this.location.x, this.location.y, this.width, this.height);
+			// context.fillStyle = color;
+			// context.fillRect(this.location.x, this.location.y, this.width, this.height);
 			context.font = '30px Trebuchet MS';
 			context.fillText(this.name, this.location.x, this.location.y);
+
+			if (count === games.length) {
+				context.drawImage(this.img, this.location.x, this.location.y, this.width, this.height);
+			}
 		}
 	}
 

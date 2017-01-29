@@ -1,5 +1,6 @@
 var WIDTH = 0;
 var HEIGHT = 0;
+var GRID_SIZE = 128;
 
 var CTX;
 var MENU;

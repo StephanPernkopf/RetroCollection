@@ -129,6 +129,8 @@ var Menu = (function(){
 
 			if (count === games.length) {
 				context.drawImage(this.img, this.location.x, this.location.y, this.width, this.height);
+			} else {
+				context.fillRect(this.location.x, this.location.y, this.width, this.height);
 			}
 
 			if (this.name === games[currGame].name) {
@@ -136,7 +138,7 @@ var Menu = (function(){
 				context.fillText(description, 10, 50);
 				if (GAME.finished() && currGame === MENU.currActiveGame)
 					context.fillText("Hit Enter to restart", 10, 90);
-				else
+				else if (this.description != "")
 					context.fillText("Hit Enter to play", 10, 90);
 			}
 		}

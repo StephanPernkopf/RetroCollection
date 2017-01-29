@@ -1,5 +1,9 @@
 var Menu = (function(){
-	var games = ["Snake", "SpaceInvaders", "Test"];
+	var games = [];
+	games.push({name: "Snake", desc: "Classic Snake game. EAT ALL FRUITS!!!"})
+	games.push({name: "SpaceInvaders", desc: ""});
+	games.push({name: "Test", desc: ""});
+
 	var count = 0;
 	positions = [];
 	currGame = 0; // game that is selected in Menu
@@ -13,7 +17,7 @@ var Menu = (function(){
 		this.currActiveGame = 0; // game that is played right now
 
 		for (var i = 0; i < games.length; i++) {
-			this.gameObjects.push(new GameObject(games[i], 0, 0, 0, 0));
+			this.gameObjects.push(new GameObject(games[i].name, games[i].desc, 0, 0, 0, 0));
 		}
 		this.gameObjects = switchPositions(this.gameObjects, currGame);
 	}
@@ -60,7 +64,7 @@ var Menu = (function(){
 		var pred = getPred(currGame);
 		var succ = getSucc(currGame);
 
-		var color = 'rgb(0, 0, 255)';
+		var color = 'rgb(0, 255, 0)';
 		this.gameObjects[pred].render(context, color);
 		this.gameObjects[currGame].render(context, color);
 		this.gameObjects[succ].render(context, color);
@@ -81,7 +85,6 @@ var Menu = (function(){
 		} else if (key == DIRECTION_UP || key == 13) {
 			if (startGame(this.currActiveGame)) {
 				this.currActiveGame	= currGame;
-				console.log(this.currActiveGame);
 			};
 		}
 	}
@@ -92,25 +95,27 @@ var Menu = (function(){
 			return false;
 		}
 
-		if (games[currGame] == "Snake")
+		if (games[currGame].name == "Snake")
 			GAME = new MainSnake();
-		else if (games[currGame] == "SpaceInvaders")
-			GAME = new Empty; // new MainInvaders();
-		else if (games[currGame] == "Test") 
-			GAME = new Empty; // new MainTest();
+		// else if (games[currGame] == "SpaceInvaders")
+		// 	GAME = new MainInvaders();
+		// else if (games[currGame] == "Test")
+		// 	GAME = new MainTest();
 		else
-			return false;
-		
+			GAME = new Empty;
+
 		return true;
 	}
 
-	GameObject = function(name, x, y, w, h) {
+	GameObject = function(name, desc, x, y, w, h) {
 		this.name = name;
+		this.description = desc;
 		this.location = new MathLib.Point(x, y);
 		this.width = w;
 		this.height = h;
+		var imageLocation = (this.description === "") ? "empty" : this.name;
 		this.img = new Image();
-		this.img.src = "games/preview/" + this.name + ".png";
+		this.img.src = "games/preview/" + imageLocation + ".png";
 		this.img.onload = function() {
 			count++;
 		}
@@ -118,13 +123,21 @@ var Menu = (function(){
 
 	GameObject.prototype.render = function(context, color) {
 		if (context) {
-			// context.fillStyle = color;
-			// context.fillRect(this.location.x, this.location.y, this.width, this.height);
+			context.fillStyle = color;
 			context.font = '30px Trebuchet MS';
-			context.fillText(this.name, this.location.x, this.location.y);
+			context.fillText(this.name, this.location.x, this.location.y - 10);
 
 			if (count === games.length) {
 				context.drawImage(this.img, this.location.x, this.location.y, this.width, this.height);
+			}
+
+			if (this.name === games[currGame].name) {
+				var description = (this.description === "") ? "This Game is not implemented yet, come back later." : this.description;
+				context.fillText(description, 10, 50);
+				if (GAME.finished() && currGame === MENU.currActiveGame)
+					context.fillText("Hit Enter to restart", 10, 90);
+				else
+					context.fillText("Hit Enter to play", 10, 90);
 			}
 		}
 	}

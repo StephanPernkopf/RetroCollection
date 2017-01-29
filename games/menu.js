@@ -70,7 +70,7 @@ var Menu = (function(){
 	Menu.prototype.inputController = function(e) {
 		var key = e.keyCode ? e.which : e.keyCode;
 
-		if (key == DIRECTION_LEFT || key == DIRECTION_UP) {
+		if (key == DIRECTION_LEFT) {
 			this.currGame = getPred(this.currGame);
 			this.gameObjects = switchPositions(this.gameObjects, this.currGame);
 		} else if (key == DIRECTION_RIGHT || key == DIRECTION_DOWN) {
@@ -78,7 +78,14 @@ var Menu = (function(){
 			this.gameObjects = switchPositions(this.gameObjects, this.currGame);
 		} else if (key == 27) {
 			GAME.pause = !GAME.pause;
+		} else if (key == DIRECTION_UP) {
+			startGame(this.currGame);
 		}
+	}
+
+	function startGame(currGame) {
+		if (currGame == 0)
+			GAME = new MainSnake();
 	}
 
 	GameObject = function(name, x, y, w, h) {

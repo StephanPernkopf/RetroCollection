@@ -50,6 +50,7 @@ function loop() {
 		var sinceStart = now - STARTTIME;
 		var currentFps = Math.round(1000 / (sinceStart / ++FRAME_COUNT) * 100) / 100;
 		FPS.innerHTML = "FPS = " + Math.round(currentFps);
+
 		GAME.update(SC);
 		GAME.draw(CTX);
 
@@ -57,6 +58,7 @@ function loop() {
 			MENU.render(CTX);
 		}
 	}
+
 	requestAnimationFrame(loop);
 }
 

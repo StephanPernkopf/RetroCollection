@@ -9,12 +9,15 @@ var MainSnake = (function() {
 	var snake;
 	var fruits = [];
 	var score = 0;
-	
+	var gameOver = false;
+
 	MainSnake = function() {
 		this.pause = false;
-		snake = new Snake;
-		fruits.push(new Fruit);
+		gameOver = false;
 		score = 0;
+		snake = new Snake;
+		fruits.splice(0, fruits.length);
+		fruits.push(new Fruit);
 	}
 
 	function addFruit() {
@@ -22,17 +25,15 @@ var MainSnake = (function() {
 		while(fruit.intersects(snake.bodyParts)) {
 			fruit = new Fruit;
 		}
-	
+
 		fruits.push(fruit);
 	}
 
-	function increaseScore(inc) {
-		if (inc) {
-			score += inc;
-		} else {
+	function increaseScore(sc) {
+		if (sc) {
 			score += 5;
+			sc.innerHTML = "SCORE = " + score;
 		}
-		SC.innerHTML = "SCORE = " + score; // TODO: global SCORE-Variable
 	}
 
 	MainSnake.prototype.test = function() {
@@ -56,15 +57,15 @@ var MainSnake = (function() {
 		}
 	}
 
-	MainSnake.prototype.loop = function() {
-		if (!this.pause && ((FRAME_COUNT * 9) % 2 === 0)) { // TODO: improve snakeTick
+	MainSnake.prototype.update = function(score) {
+		if (!this.pause && !gameOver && ((FRAME_COUNT * 9) % 2 === 0)) { // TODO: improve snakeTick
 			snake.move();
-			
+
 			for (var i = fruits.length - 1; i >= 0; i--) {
 				if (snake.intersects(fruits[i].location)) {
 					snake.grow();
 					fruits.splice(i, 1);
-					increaseScore.call(this);				
+					increaseScore.call(this, score);
 				}
 			}
 
@@ -76,15 +77,22 @@ var MainSnake = (function() {
 				// TODO: GAME OVER
 				console.log("Game Over");
 				this.pause = true;
+				gameOver = true;
 			}
 		}
+	}
 
-		VisualLib.clearScreen(CTX);
-		snake.draw();
+	MainSnake.prototype.draw = function(context) {
+		VisualLib.clearScreen(context);
+		snake.draw(context);
 
 		for (var i = 0; i < fruits.length; i++) {
-			fruits[i].draw();
+			fruits[i].draw(context);
 		}
+	}
+
+	MainSnake.prototype.finished = function() {
+		return gameOver;
 	}
 
 	return MainSnake;

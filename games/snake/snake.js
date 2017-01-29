@@ -15,7 +15,7 @@ var Snake = (function(){
 		for (var i = this.bodyParts.length - 1; i > 0; i--) {
 			this.bodyParts[i] = this.bodyParts[i - 1].copy();
 		}
-		
+
 		// move head
 		switch(this.direction) {
 		case "UP":
@@ -35,11 +35,11 @@ var Snake = (function(){
 		// prevent the snake from escaping the window
 		var w = Math.floor(WIDTH / GRID_SIZE);
 		var h = Math.floor(HEIGHT / GRID_SIZE);
-		
+
 		if (this.bodyParts[0].x >= w) {
 			this.bodyParts[0].x -= w;
 		} else if (this.bodyParts[0].x < 0) {
-			this.bodyParts[0].x += w;			
+			this.bodyParts[0].x += w;
 		} else if (this.bodyParts[0].y >= h) {
 			this.bodyParts[0].y -= h;
 		} else if (this.bodyParts[0].y < 0) {
@@ -84,13 +84,13 @@ var Snake = (function(){
 		this.bodyParts.push(this.bodyParts[this.bodyParts.length - 1].copy());
 	}
 
-	Snake.prototype.draw = function() {
+	Snake.prototype.draw = function(context) {
 		for (var i = 0; i < this.bodyParts.length; i++) {
 			var x = this.bodyParts[i].x * GRID_SIZE;
 			var y = this.bodyParts[i].y * GRID_SIZE;
-		
-			CTX.fillStyle = this.color;
-			CTX.fillRect(x,	y, GRID_SIZE, GRID_SIZE);
+
+			context.fillStyle = this.color;
+			context.fillRect(x,	y, GRID_SIZE, GRID_SIZE);
 		}
 	}
 

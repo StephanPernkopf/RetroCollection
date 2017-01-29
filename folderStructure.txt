@@ -9,8 +9,13 @@ RetroCollection
 |	|	|-- enemies.js
 |	|	|-- player.js
 |	|	`-- space.js
+|	|-- preview
+|	|	|-- Snake.png
+|	|	|-- "Space Invaders.png"
+|	|	`-- Test.png
 |	`-- menu.js
 |-- lib
+|	|-- visualLib.js
 |	`-- mathLib.js
 |-- styles
 |	`-- layout.css

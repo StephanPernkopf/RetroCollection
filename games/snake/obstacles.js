@@ -33,8 +33,8 @@ var Border = (function(){
 
 var Fruit = (function() {
 	Fruit = function() {
-		var x = Math.floor(MathLib.random(WIDTH / GRID_SIZE));
-		var y = Math.floor(MathLib.random(HEIGHT / GRID_SIZE));
+		var x = Math.floor(MathLib.random(Math.floor(WIDTH / GRID_SIZE)));
+		var y = Math.floor(MathLib.random(Math.floor(HEIGHT / GRID_SIZE)));
 
 		this.location = new MathLib.Point(x, y);
 		this.color = VisualLib.randomColorString();

@@ -33,8 +33,8 @@ var Snake = (function(){
 		}
 
 		// prevent the snake from escaping the window
-		var w = WIDTH / GRID_SIZE;
-		var h = HEIGHT / GRID_SIZE;
+		var w = Math.floor(WIDTH / GRID_SIZE);
+		var h = Math.floor(HEIGHT / GRID_SIZE);
 		
 		if (this.bodyParts[0].x >= w) {
 			this.bodyParts[0].x -= w;

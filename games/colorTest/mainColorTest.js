@@ -23,11 +23,11 @@ var MainColorTest = (function() {
 			this.pause = !this.pause;
 		} else if (key == DIRECTION_UP) {
 			for (var i = 0; i < rectangles.length; i++) {
-				rectangles[i].changeColor(i);
+				rectangles[i].changeColor();
 			}
 		} else if (key == DIRECTION_DOWN) {
 			for (var i = 0; i < rectangles.length; i++) {
-				rectangles[i].changeColor(i);
+				rectangles[i].changeColor();
 			}
 		}
 	}
@@ -56,8 +56,8 @@ var MainColorTest = (function() {
 		this.color = VisualLib.randomRangedColorString();
 	}
 
-	Rect.prototype.changeColor = function(state) {
-		this.color = VisualLib.randomRangedColorString(state, state/4);
+	Rect.prototype.changeColor = function() {
+		this.color = VisualLib.randomRangedColorString(240, 15);
 	}
 
 	Rect.prototype.draw = function(context) {

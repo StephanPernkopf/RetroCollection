@@ -1,7 +1,8 @@
 var Menu = (function(){
-	var games = ["Snake", "Space Invaders", "Test"];
+	var games = ["Snake", "SpaceInvaders", "Test"];
 	var count = 0;
 	positions = [];
+	currGame = 0; // game that is selected in Menu
 
 	Menu = function() {
 		positions.push({x: (WIDTH / 2 - 425), y: (HEIGHT - 185), width: 200, height: 150});
@@ -9,12 +10,12 @@ var Menu = (function(){
 		positions.push({x: (WIDTH / 2 + 225), y: (HEIGHT - 185), width: 200, height: 150});
 
 		this.gameObjects = [];
-		this.currGame = 0;
+		this.currActiveGame = 0; // game that is played right now
 
 		for (var i = 0; i < games.length; i++) {
 			this.gameObjects.push(new GameObject(games[i], 0, 0, 0, 0));
 		}
-		this.gameObjects = switchPositions(this.gameObjects, this.currGame);
+		this.gameObjects = switchPositions(this.gameObjects, currGame);
 	}
 
 	function switchPositions(arr, pos) {
@@ -36,7 +37,6 @@ var Menu = (function(){
 				arr[runner].height = positions[i].height;
 			}
 		}
-		console.log(arr);
 		return arr;
 	}
 
@@ -53,16 +53,16 @@ var Menu = (function(){
 	}
 
 	Menu.prototype.render = function(context) {
-		// Pause Menu Overlay
+		// Pause Menu Background
 		context.fillStyle = 'rgba(0, 0, 0, 0.7)';
 		context.fillRect(0, 0, WIDTH, HEIGHT);
 
-		var pred = getPred(this.currGame);
-		var succ = getSucc(this.currGame);
+		var pred = getPred(currGame);
+		var succ = getSucc(currGame);
 
 		var color = 'rgb(0, 0, 255)';
 		this.gameObjects[pred].render(context, color);
-		this.gameObjects[this.currGame].render(context, color);
+		this.gameObjects[currGame].render(context, color);
 		this.gameObjects[succ].render(context, color);
 
 	}
@@ -71,21 +71,39 @@ var Menu = (function(){
 		var key = e.keyCode ? e.which : e.keyCode;
 
 		if (key == DIRECTION_LEFT) {
-			this.currGame = getPred(this.currGame);
-			this.gameObjects = switchPositions(this.gameObjects, this.currGame);
+			currGame = getPred(currGame);
+			this.gameObjects = switchPositions(this.gameObjects, currGame);
 		} else if (key == DIRECTION_RIGHT || key == DIRECTION_DOWN) {
-			this.currGame = getSucc(this.currGame);
-			this.gameObjects = switchPositions(this.gameObjects, this.currGame);
+			currGame = getSucc(currGame);
+			this.gameObjects = switchPositions(this.gameObjects, currGame);
 		} else if (key == 27) {
 			GAME.pause = !GAME.pause;
-		} else if (key == DIRECTION_UP) {
-			startGame(this.currGame);
+		} else if (key == DIRECTION_UP || key == 13) {
+			if (startGame(this.currActiveGame)) {
+				this.currActiveGame	= currGame;
+				console.log(this.currActiveGame);
+			};
 		}
 	}
 
-	function startGame(currGame) {
-		if (currGame == 0)
+	function startGame(currActiveGame) {
+		if (currGame == currActiveGame && !GAME.finished()) {
+			GAME.pause = false;
+			return false;
+		}
+
+		if (games[currGame] == "Snake")
 			GAME = new MainSnake();
+		else if (games[currGame] == "SpaceInvaders")
+			console.log("SpaceInvaders");
+			// GAME = new MainInvaders();
+		else if (games[currGame] == "Test") 
+			console.log("Test");
+			// GAME = new MainTest();
+		else
+			return false;
+		
+		return true;
 	}
 
 	GameObject = function(name, x, y, w, h) {

@@ -13,9 +13,11 @@ var MainSnake = (function() {
 
 	MainSnake = function() {
 		this.pause = false;
-		snake = new Snake;
-		fruits.push(new Fruit);
+		gameOver = false;
 		score = 0;
+		snake = new Snake;
+		fruits.splice(0, fruits.length);
+		fruits.push(new Fruit);
 	}
 
 	function addFruit() {
@@ -81,6 +83,10 @@ var MainSnake = (function() {
 		for (var i = 0; i < fruits.length; i++) {
 			fruits[i].draw(context);
 		}
+	}
+
+	MainSnake.prototype.finished = function() {
+		return gameOver;
 	}
 
 	return MainSnake;

@@ -2,6 +2,7 @@ var WIDTH = 0;
 var HEIGHT = 0;
 
 var CTX;
+var MENU;
 var GAME;
 var SC;
 var FPS;
@@ -22,10 +23,10 @@ window.onload = function() {
 	SC.innerHTML = "SCORE = 0";
 	FPS.innerHTML = "FPS = 0";
 	WIDTH = Math.floor(canvas.width);
-	HEIGHT = Math.floor(canvas.height); 
+	HEIGHT = Math.floor(canvas.height);
 
 	GAME = new MainSnake();
-	// var menu = new Menu();
+	MENU = new Menu();
 
 	window.onkeydown = inputHandler;
 
@@ -42,30 +43,32 @@ function initLoop(fps) {
 function loop() {
 	var now = performance.now();
 	var elapsed = now - LAST_DRAW_TIME;
-	
+
 	if (elapsed > FPS_INTERVAL) {
 		LAST_DRAW_TIME = now - (elapsed % FPS_INTERVAL);
-		
+
 		var sinceStart = now - STARTTIME;
 		var currentFps = Math.round(1000 / (sinceStart / ++FRAME_COUNT) * 100) / 100;
 		FPS.innerHTML = "FPS = " + Math.round(currentFps);
-		// console.log(currentFps);
 		GAME.update(SC);
 		GAME.draw(CTX);
 
-		// if (menu.visible) {
-		// 	menu.render();
-		// }
+		if (GAME.pause) {
+			MENU.render(CTX);
+		}
 	}
 	requestAnimationFrame(loop);
 }
 
 function inputHandler(e) {
 	var key = e.keyCode ? e.which : e.keyCode;
-	
-	if (key == 27) {
-		GAME.pause = !GAME.pause;
+	if (GAME.pause) {
+		MENU.inputController(e);
 	} else {
-		GAME.gameController(e);
+		if (key == 27) {
+			GAME.pause = !GAME.pause;
+		} else {
+			GAME.gameController(e);
+		}
 	}
 }

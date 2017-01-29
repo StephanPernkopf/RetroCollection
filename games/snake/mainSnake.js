@@ -9,7 +9,7 @@ var MainSnake = (function() {
 	var snake;
 	var fruits = [];
 	var score = 0;
-	
+
 	MainSnake = function() {
 		this.pause = false;
 		snake = new Snake;
@@ -22,7 +22,7 @@ var MainSnake = (function() {
 		while(fruit.intersects(snake.bodyParts)) {
 			fruit = new Fruit;
 		}
-	
+
 		fruits.push(fruit);
 	}
 
@@ -51,12 +51,12 @@ var MainSnake = (function() {
 	MainSnake.prototype.update = function(score) {
 		if (!this.pause && ((FRAME_COUNT * 9) % 2 === 0)) { // TODO: improve snakeTick
 			snake.move();
-			
+
 			for (var i = fruits.length - 1; i >= 0; i--) {
 				if (snake.intersects(fruits[i].location)) {
 					snake.grow();
 					fruits.splice(i, 1);
-					increaseScore.call(this, score);				
+					increaseScore.call(this, score);
 				}
 			}
 

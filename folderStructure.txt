@@ -11,6 +11,7 @@ RetroCollection
 |	|	`-- space.js
 |	`-- menu.js
 |-- lib
+|	|-- visualLib.js
 |	`-- mathLib.js
 |-- styles
 |	`-- layout.css

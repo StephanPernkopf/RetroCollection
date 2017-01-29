@@ -1,5 +1,5 @@
 var Border = (function(){
-	
+
 	Border = function() {
 		// TODO: Set Position
 		// var x = Math.floor(MathLib.random(WIDTH / GRID_SIZE));
@@ -15,8 +15,8 @@ var Border = (function(){
 	}
 
 	Border.prototype.intersects = function(point) {
-		if (point instanceof Array) {			
-			
+		if (point instanceof Array) {
+
 			for (var i = 0; i < point.length; i++) {
 				 if (Math.floor(this.location.distTo(point[i]) === 0)) {
 					 return true;
@@ -50,8 +50,8 @@ var Fruit = (function() {
 	}
 
 	Fruit.prototype.intersects = function(point) {
-		if (point instanceof Array) {			
-			
+		if (point instanceof Array) {
+
 			for (var i = 0; i < point.length; i++) {
 				 if (Math.floor(this.location.distTo(point[i]) === 0)) {
 					 return true;

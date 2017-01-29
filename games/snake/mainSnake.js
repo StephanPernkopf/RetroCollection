@@ -3,15 +3,15 @@ var DIRECTION_DOWN = 40;
 var DIRECTION_LEFT = 37;
 var DIRECTION_RIGHT = 39;
 
-var GRID_SIZE = 12;
-
 var MainSnake = (function() {
+
 	var snake;
 	var fruits = [];
 	var score = 0;
 	var gameOver = false;
 
 	MainSnake = function() {
+		GRID_SIZE = 12;
 		this.pause = false;
 		gameOver = false;
 		score = 0;

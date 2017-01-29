@@ -3,6 +3,7 @@ var Menu = (function(){
 	games.push({name: "Snake", desc: "Classic Snake game. EAT ALL FRUITS!!!"})
 	games.push({name: "SpaceInvaders", desc: ""});
 	games.push({name: "Test", desc: ""});
+	games.push({name: "ColorTest", desc: "color test"});
 
 	var count = 0;
 	positions = [];
@@ -101,6 +102,8 @@ var Menu = (function(){
 		// 	GAME = new MainInvaders();
 		// else if (games[currGame] == "Test")
 		// 	GAME = new MainTest();
+		else if (games[currGame].name == "ColorTest")
+			GAME = new MainColorTest();
 		else
 			GAME = new Empty;
 

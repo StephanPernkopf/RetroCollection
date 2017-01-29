@@ -34,6 +34,38 @@ body {
     align-self: flex-end;
 }
 
+.alert {
+    width: 960px;
+    max-width: 100%;
+
+    margin: 0 0 15px 0;
+    padding: 20px 0 20px 0;
+}
+
+.alert-info {
+    background-color: rgb(75, 176, 79);
+}
+
+.alert-error {
+    background-color: rgb(244, 67, 54);
+    display: none;
+}
+
+.close-btn {
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+
+    transition: 0.3s;
+    margin: 0 30px 0 0;
+    float: right;
+}
+
+.close-btn:hover {
+    color: rgb(0, 0, 0);
+}
+
 #playground {
     background-color: rgb(255, 255, 255);
     max-width: 100%;
@@ -76,6 +108,10 @@ body {
 }
 
 @media only screen and (max-width: 1024px) {
+    .alert {
+        width: 640px;
+    }
+
     #playground {
         width: 640px;
     }
@@ -86,6 +122,14 @@ body {
 }
 
 @media only screen and (max-width: 768px) {
+    .alert-info {
+        display: none;
+    }
+
+    .alert-error {
+        display: block;
+    }
+
     #playground {
         display: none;
     }

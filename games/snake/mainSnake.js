@@ -57,7 +57,7 @@ var MainSnake = (function() {
 
 			for (var i = fruits.length - 1; i >= 0; i--) {
 				if (snake.intersects(fruits[i].location)) {
-					snake.grow();
+					snake.grow(fruits[i].color);
 					fruits.splice(i, 1);
 					increaseScore.call(this, score);
 				}

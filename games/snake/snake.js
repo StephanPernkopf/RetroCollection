@@ -1,5 +1,8 @@
 var Snake = (function(){
+	var bodyPartColors = [];
+
 	Snake = function() {
+		bodyPartColors = ["rgb(0,0,0)", "rgb(0,0,0)"];
 		this.bodyParts = [];
 		var x = Math.floor(WIDTH / 2 / GRID_SIZE);
 		var y = Math.floor(HEIGHT / 2 / GRID_SIZE);
@@ -7,13 +10,13 @@ var Snake = (function(){
 		this.bodyParts.push(new MathLib.Point(this.bodyParts[0].x - 1, y));
 		this.direction = "RIGHT";
 		this.locked = false;
-		this.color = "#000000";
 	}
 
 	Snake.prototype.move = function() {
 		this.locked = false;
 		for (var i = this.bodyParts.length - 1; i > 0; i--) {
 			this.bodyParts[i] = this.bodyParts[i - 1].copy();
+			bodyPartColors[i] = bodyPartColors[i - 1];
 		}
 
 		// move head
@@ -80,8 +83,9 @@ var Snake = (function(){
 		return Math.floor(this.bodyParts[0].distTo(point)) === 0;
 	}
 
-	Snake.prototype.grow = function() {
+	Snake.prototype.grow = function(color) {
 		this.bodyParts.push(this.bodyParts[this.bodyParts.length - 1].copy());
+		bodyPartColors[0] = color;
 	}
 
 	Snake.prototype.draw = function(context) {
@@ -89,7 +93,7 @@ var Snake = (function(){
 			var x = this.bodyParts[i].x * GRID_SIZE;
 			var y = this.bodyParts[i].y * GRID_SIZE;
 
-			context.fillStyle = this.color;
+			context.fillStyle = bodyPartColors[i];
 			context.fillRect(x,	y, GRID_SIZE, GRID_SIZE);
 		}
 	}

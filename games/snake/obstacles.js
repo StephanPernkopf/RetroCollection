@@ -38,7 +38,7 @@ var Fruit = (function() {
 		var y = Math.floor(MathLib.random(Math.floor(HEIGHT / GRID_SIZE)));
 
 		this.location = new MathLib.Point(x, y);
-		this.color = VisualLib.randomColorString();
+		this.color = VisualLib.randomRangedColorString();
 	}
 
 	Fruit.prototype.draw = function(context) {

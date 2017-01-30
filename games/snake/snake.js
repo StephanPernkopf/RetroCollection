@@ -2,7 +2,7 @@ var Snake = (function(){
 	var bodyPartColors = [];
 
 	Snake = function() {
-		bodyPartColors = ["rgb(0,0,0)", "rgb(0,0,0)"];
+		bodyPartColors = [VisualLib.randomRangedColorString()];
 		this.bodyParts = [];
 		var x = Math.floor(WIDTH / 2 / GRID_SIZE);
 		var y = Math.floor(HEIGHT / 2 / GRID_SIZE);

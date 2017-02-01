@@ -3,63 +3,77 @@ var HEIGHT = 0;
 var GRID_SIZE = 128;
 
 var CTX;
-var MENU;
 var GAME;
+var MENU;
 var SC;
 var FPS;
 
-var FPS_INTERVAL = 0;
-var LAST_DRAW_TIME = 0;
-
-var STARTTIME;
-var FRAME_COUNT = 0;
+var DRAW_TIME_PREVIOUS = 0;
+var DRAW_TIME_LAG = 0;
+var UPDATE_INTERVAL = 0;
+var LAST_FRAME = 0;
+var COUNTER = 0;
+var AVG_TIMER;
 
 window.onload = function() {
 	var canvas = document.getElementById("playground");
 	CTX = canvas.getContext("2d");
 
-	SC = document.getElementById("score");
-	FPS = document.getElementById("fps");
-
-	SC.innerHTML = "SCORE = 0";
-	FPS.innerHTML = "FPS = 0";
 	WIDTH = Math.floor(canvas.width);
 	HEIGHT = Math.floor(canvas.height);
 
 	GAME = new MainSnake();
 	MENU = new Menu();
 
+	SC = document.getElementById("score");
+	FPS = document.getElementById("fps");
+	SC.innerHTML = "SCORE = 0";
+	FPS.innerHTML = "FPS = 0";
 	window.onkeydown = inputHandler;
 
 	initLoop(120);
 }
 
-function initLoop(fps) {
-	FPS_INTERVAL = 1000 / fps;
-	LAST_DRAW_TIME = performance.now();
-	STARTTIME = LAST_DRAW_TIME;
-	loop();
+function initLoop(stepsPerSecond) {
+	DRAW_TIME_PREVIOUS = performance.now();
+	DRAW_TIME_LAG = 0;
+	UPDATE_INTERVAL = 1 / stepsPerSecond;
+	AVG_TIMER = new avgTimer();
+	requestAnimationFrame(loop);
 }
 
 function loop() {
-	var now = performance.now();
-	var elapsed = now - LAST_DRAW_TIME;
+	AVG_TIMER.startTick();
 
-	if (elapsed > FPS_INTERVAL) {
-		LAST_DRAW_TIME = now - (elapsed % FPS_INTERVAL);
+	var current = performance.now();
+	DRAW_TIME_LAG += Math.min(1, (current - DRAW_TIME_PREVIOUS) / 1000);
 
-		var sinceStart = now - STARTTIME;
-		var currentFps = Math.round(1000 / (sinceStart / ++FRAME_COUNT) * 100) / 100;
-		FPS.innerHTML = "FPS = " + Math.round(currentFps);
+	// processInput();
+
+	var safeguard = 0;
+	while(DRAW_TIME_LAG >= UPDATE_INTERVAL && safeguard < 8) {
+
+		if (safeguard === 0) {
+			if (Math.floor(current / 1000) > COUNTER) {
+				FPS.innerHTML = "FPS = " + AVG_TIMER.getFPS();
+				COUNTER = Math.floor(current / 1000);
+			}
+			LAST_FRAME = current;
+		}
 
 		GAME.update(SC);
-		GAME.draw(CTX);
-
-		if (GAME.pause) {
-			MENU.render(CTX);
-		}
+		DRAW_TIME_LAG -= UPDATE_INTERVAL;
+		safeguard++;
 	}
 
+	GAME.draw(CTX, DRAW_TIME_LAG);
+
+	if (GAME.pause) {
+		MENU.render(CTX);
+	}
+
+	DRAW_TIME_PREVIOUS = current;
+	AVG_TIMER.endTick();
 	requestAnimationFrame(loop);
 }
 
@@ -75,3 +89,43 @@ function inputHandler(e) {
 		}
 	}
 }
+
+var avgTimer = (function() {
+	var previousTick = 0;
+	var currentTick = 0;
+
+	avgTimer = function(maxLength) {
+		this.avgTimes = [];
+		if (maxLength == undefined) {
+			this.maxLength = 100;
+		} else {
+			this.maxLength = maxLength;
+		}
+
+		for (var i = 0; i < this.maxLength; i++) {
+			this.avgTimes[i] = 1;
+		}
+	}
+
+	avgTimer.prototype.startTick = function() {
+		previousTick = performance.now();
+	}
+
+	avgTimer.prototype.endTick = function() {
+		currentTick = performance.now();
+
+		this.avgTimes.push(currentTick - previousTick);
+		this.avgTimes.shift();
+	}
+
+	avgTimer.prototype.getFPS = function() {
+		var sum = 0;
+		for (var i = 0; i < this.maxLength; i++) {
+			sum += this.avgTimes[i];
+		}
+
+		return Math.round(1 / (sum / this.avgTimes.length) * 1000);
+	}
+
+	return avgTimer;
+}());

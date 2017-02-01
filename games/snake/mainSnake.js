@@ -52,7 +52,7 @@ var MainSnake = (function() {
 	}
 
 	MainSnake.prototype.update = function(score) {
-		if (!this.pause && !gameOver && ((FRAME_COUNT * 9) % 2 === 0)) { // TODO: improve snakeTick
+		if (!this.pause && !gameOver) { // TODO: improve snakeTick
 			snake.move();
 
 			for (var i = fruits.length - 1; i >= 0; i--) {
@@ -76,7 +76,7 @@ var MainSnake = (function() {
 		}
 	}
 
-	MainSnake.prototype.draw = function(context) {
+	MainSnake.prototype.draw = function(context, lag) {
 		VisualLib.clearScreen(context);
 		snake.draw(context);
 

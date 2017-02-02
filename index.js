@@ -43,6 +43,8 @@ function initLoop(stepsPerSecond) {
 }
 
 function loop() {
+	AVG_TIMER.endTick();
+	AVG_TIMER.startTick();
 
 	var current = performance.now();
 	DRAW_TIME_LAG += Math.min(1, (current - DRAW_TIME_PREVIOUS) / 1000);
@@ -58,9 +60,7 @@ function loop() {
 			LAST_FRAME = current;
 		}
 
-		AVG_TIMER.endTick();
 		GAME.update(SC);
-		AVG_TIMER.startTick();
 		DRAW_TIME_LAG -= UPDATE_INTERVAL;
 		safeguard++;
 	}

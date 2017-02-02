@@ -132,6 +132,8 @@ var Menu = (function(){
 			context.font = '30px Trebuchet MS';
 			context.fillText(this.name, this.location.x, this.location.y - 10);
 
+			context.fillText(currGame + 1 + "/" + games.length, WIDTH / 2 - 150, HEIGHT - 40);
+
 			if (count === games.length) {
 				context.drawImage(this.img, this.location.x, this.location.y, this.width, this.height);
 			} else {

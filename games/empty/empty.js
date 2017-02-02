@@ -11,8 +11,8 @@ var Empty = (function() {
 
 	}
 
-	Empty.prototype.draw = function(context) {
-		VisualLib.clearScreen(context, VisualLib.randomColorString());
+	Empty.prototype.render = function(context) {
+		VisualLib.clearScreen(context);
 	}
 
 	return Empty;

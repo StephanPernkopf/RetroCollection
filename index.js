@@ -43,17 +43,14 @@ function initLoop(stepsPerSecond) {
 }
 
 function loop() {
-	AVG_TIMER.startTick();
 
 	var current = performance.now();
 	DRAW_TIME_LAG += Math.min(1, (current - DRAW_TIME_PREVIOUS) / 1000);
 
-	// processInput();
-
 	var safeguard = 0;
 	while(DRAW_TIME_LAG >= UPDATE_INTERVAL && safeguard < 8) {
 
-		if (safeguard === 0) {
+		if (safeguard == 0) {
 			if (Math.floor(current / 1000) > COUNTER) {
 				FPS.innerHTML = "FPS = " + AVG_TIMER.getFPS();
 				COUNTER = Math.floor(current / 1000);
@@ -61,19 +58,20 @@ function loop() {
 			LAST_FRAME = current;
 		}
 
+		AVG_TIMER.endTick();
 		GAME.update(SC);
+		AVG_TIMER.startTick();
 		DRAW_TIME_LAG -= UPDATE_INTERVAL;
 		safeguard++;
 	}
 
-	GAME.draw(CTX, DRAW_TIME_LAG);
+	GAME.render(CTX);
 
 	if (GAME.pause) {
 		MENU.render(CTX);
 	}
 
 	DRAW_TIME_PREVIOUS = current;
-	AVG_TIMER.endTick();
 	requestAnimationFrame(loop);
 }
 

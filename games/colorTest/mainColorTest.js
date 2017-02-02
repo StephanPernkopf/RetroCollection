@@ -36,7 +36,7 @@ var MainColorTest = (function() {
 		
 	}
 
-	MainColorTest.prototype.draw = function(context) {
+	MainColorTest.prototype.render = function(context) {
 		VisualLib.clearScreen(context);
 
 		for (var i = 0; i < rectangles.length; i++) {		
@@ -57,7 +57,7 @@ var MainColorTest = (function() {
 	}
 
 	Rect.prototype.changeColor = function() {
-		this.color = VisualLib.randomRangedColorString(240, 15);
+		this.color = VisualLib.randomRangedColorString();
 	}
 
 	Rect.prototype.draw = function(context) {

@@ -10,7 +10,7 @@ var Border = (function(){
 		this.color = VisualLib.randomColorString();
 	}
 
-	Border.prototype.draw = function(context) {
+	Border.prototype.render = function(context) {
 		// TODO: implement draw
 	}
 
@@ -41,7 +41,7 @@ var Fruit = (function() {
 		this.color = VisualLib.randomRangedColorString();
 	}
 
-	Fruit.prototype.draw = function(context) {
+	Fruit.prototype.render = function(context) {
 		var x = this.location.x * GRID_SIZE;
 		var y = this.location.y * GRID_SIZE;
 

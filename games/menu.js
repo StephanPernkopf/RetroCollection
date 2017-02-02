@@ -96,6 +96,8 @@ var Menu = (function(){
 			return false;
 		}
 
+		SC.innerHTML = "SCORE = 0";
+
 		if (games[currGame].name == "Snake")
 			GAME = new MainSnake();
 		// else if (games[currGame] == "SpaceInvaders")

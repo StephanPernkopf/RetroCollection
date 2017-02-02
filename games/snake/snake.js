@@ -88,7 +88,7 @@ var Snake = (function(){
 		bodyPartColors[0] = color;
 	}
 
-	Snake.prototype.draw = function(context) {
+	Snake.prototype.render = function(context) {
 		for (var i = 0; i < this.bodyParts.length; i++) {
 			var x = this.bodyParts[i].x * GRID_SIZE;
 			var y = this.bodyParts[i].y * GRID_SIZE;

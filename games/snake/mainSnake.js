@@ -52,7 +52,7 @@ var MainSnake = (function() {
 	}
 
 	MainSnake.prototype.update = function(score) {
-		if (!this.pause && !gameOver) { // TODO: improve snakeTick
+		if (!this.pause && !gameOver) {
 			snake.move();
 
 			for (var i = fruits.length - 1; i >= 0; i--) {
@@ -76,12 +76,12 @@ var MainSnake = (function() {
 		}
 	}
 
-	MainSnake.prototype.draw = function(context, lag) {
+	MainSnake.prototype.render = function(context, lag) {
 		VisualLib.clearScreen(context);
-		snake.draw(context);
+		snake.render(context);
 
 		for (var i = 0; i < fruits.length; i++) {
-			fruits[i].draw(context);
+			fruits[i].render(context);
 		}
 	}
 

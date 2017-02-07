@@ -1,8 +1,3 @@
-var DIRECTION_UP = 38;
-var DIRECTION_DOWN = 40;
-var DIRECTION_LEFT = 37;
-var DIRECTION_RIGHT = 39;
-
 var MainSnake = (function() {
 
 	var snake;
@@ -36,19 +31,34 @@ var MainSnake = (function() {
 		}
 	}
 
-	MainSnake.prototype.gameController = function(e) {
-		var key = e.keyCode ? e.keyCode : e.which;
-		if (key == 32) {//Space
-			this.pause = !this.pause;
-		} else if (key == DIRECTION_UP) {
-			snake.changeDirection("UP");
-		} else if (key == DIRECTION_DOWN) {
-			snake.changeDirection("DOWN");
-		} else if (key == DIRECTION_LEFT) {
+	MainSnake.prototype.directionalInput = function(id, dx, dy) {
+		if (dx == -1 && dy == 0) {
 			snake.changeDirection("LEFT");
-		} else if (key == DIRECTION_RIGHT) {
+		} else if (dx == 0 && dy == 1) {
+			snake.changeDirection("UP");
+		} else if (dx == 1 && dy == 0) {
 			snake.changeDirection("RIGHT");
+		} else if (dx == 0 && dy == -1) {
+			snake.changeDirection("DOWN");
 		}
+	}
+
+	MainSnake.prototype.binaryInput = function(id, btn_code) {
+		if (btn_code == "SPACE_KEY") {
+            this.pause = !this.pause;
+        } else if (btn_code == "A_KEY") {
+            snake.changeDirection("LEFT");
+        } else if (btn_code == "W_KEY") {
+            snake.changeDirection("UP");
+        } else if (btn_code == "D_KEY") {
+            snake.changeDirection("RIGHT");
+        } else if (btn_code == "S_KEY") {
+            snake.changeDirection("DOWN");
+        }
+	}
+
+	MainSnake.prototype.rawInput = function(id, btn_code, value) {
+
 	}
 
 	MainSnake.prototype.update = function(score) {

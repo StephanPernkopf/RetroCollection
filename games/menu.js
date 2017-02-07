@@ -58,7 +58,6 @@ var Menu = (function(){
 	}
 
 	Menu.prototype.render = function(context) {
-		// Pause Menu Background
 		context.fillStyle = 'rgba(0, 0, 0, 0.7)';
 		context.fillRect(0, 0, WIDTH, HEIGHT);
 
@@ -72,21 +71,33 @@ var Menu = (function(){
 
 	}
 
-	Menu.prototype.inputController = function(e) {
-		var key = e.keyCode ? e.which : e.keyCode;
-
-		if (key == DIRECTION_LEFT) {
+	Menu.prototype.directionalInput = function(id, dx, dy) {
+		if (dx == -1 && dy == 0) {
 			currGame = getPred(currGame);
 			this.gameObjects = switchPositions(this.gameObjects, currGame);
-		} else if (key == DIRECTION_RIGHT || key == DIRECTION_DOWN) {
+		} else if (dx == 1 && dy == 0) {
 			currGame = getSucc(currGame);
 			this.gameObjects = switchPositions(this.gameObjects, currGame);
-		} else if (key == 27) {
-			GAME.pause = !GAME.pause;
-		} else if (key == DIRECTION_UP || key == 13) {
+		} else if (dx == 0 && dy == 1) {
 			if (startGame(this.currActiveGame)) {
 				this.currActiveGame	= currGame;
 			};
+		}
+	}
+
+	Menu.prototype.binaryInput = function(id, btn_code) {
+		if (btn_code == "ENTER_KEY" || btn_code == "SPACE_KEY" ||
+			btn_code == "W_KEY") {
+
+			if (startGame(this.currActiveGame)) {
+				this.currActiveGame	= currGame;
+			};
+		} else if (btn_code == "A_KEY") {
+			currGame = getPred(currGame);
+			this.gameObjects = switchPositions(this.gameObjects, currGame);
+		} else  if (btn_code == "D_KEY") {
+			currGame = getSucc(currGame);
+			this.gameObjects = switchPositions(this.gameObjects, currGame);
 		}
 	}
 

@@ -23,15 +23,16 @@ window.onload = function() {
 	HEIGHT = Math.floor(canvas.height);
 
 	GAME = new MainSnake();
+	GAME.pause = true;
 	MENU = new Menu();
 
 	SC = document.getElementById("score");
 	FPS = document.getElementById("fps");
 	SC.innerHTML = "SCORE = 0";
 	FPS.innerHTML = "FPS = 0";
-	window.onkeydown = inputHandler;
+	window.onkeydown = InputLib.processKeyboardInput;
 
-	initLoop(120);
+	initLoop(30);
 }
 
 function initLoop(stepsPerSecond) {
@@ -48,6 +49,8 @@ function loop() {
 
 	var current = performance.now();
 	DRAW_TIME_LAG += Math.min(1, (current - DRAW_TIME_PREVIOUS) / 1000);
+
+	// InputLib.processGamepadInput();
 
 	var safeguard = 0;
 	while(DRAW_TIME_LAG >= UPDATE_INTERVAL && safeguard < 8) {
@@ -73,19 +76,6 @@ function loop() {
 
 	DRAW_TIME_PREVIOUS = current;
 	requestAnimationFrame(loop);
-}
-
-function inputHandler(e) {
-	var key = e.keyCode ? e.which : e.keyCode;
-	if (GAME.pause) {
-		MENU.inputController(e);
-	} else {
-		if (key == 27) {
-			GAME.pause = !GAME.pause;
-		} else {
-			GAME.gameController(e);
-		}
-	}
 }
 
 var avgTimer = (function() {

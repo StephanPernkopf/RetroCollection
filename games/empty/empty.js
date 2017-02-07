@@ -15,5 +15,17 @@ var Empty = (function() {
 		VisualLib.clearScreen(context);
 	}
 
+	Empty.prototype.directionalInput = function(id, dx, dy) {
+		console.log("directional: ", id, dx, dy);
+	}
+
+	Empty.prototype.binaryInput = function(id, btn_code) {
+		console.log("binary: ", id, btn_code);
+	}
+
+	Empty.prototype.rawInput = function(id, btn_code, value) {
+		console.log("raw: ", id, btn_code, value);
+	}
+
 	return Empty;
 }());

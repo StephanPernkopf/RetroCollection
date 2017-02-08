@@ -17,20 +17,14 @@ var MainColorTest = (function() {
 		}
 	}
 
-	MainColorTest.prototype.gameController = function(e) {
-		var key = e.keyCode ? e.keyCode : e.which;
-		if (key == 32) {//Space
-			this.pause = !this.pause;
-		} else if (key == DIRECTION_UP) {
-			for (var i = 0; i < rectangles.length; i++) {
-				rectangles[i].changeColor();
-			}
-		} else if (key == DIRECTION_DOWN) {
-			for (var i = 0; i < rectangles.length; i++) {
-				rectangles[i].changeColor();
-			}
+	MainColorTest.prototype.directionalInput = function(id, dx, dy) {
+		for (var i = 0; i < rectangles.length; i++) {
+			rectangles[i].changeColor(dx, dy);
 		}
 	}
+
+	MainColorTest.prototype.binaryInput = function(id, btn_code) {}
+	MainColorTest.prototype.rawInput = function(id, btn_code, value) {}
 
 	MainColorTest.prototype.update = function() {
 		
@@ -53,11 +47,11 @@ var MainColorTest = (function() {
 		this.y = y;
 		this.w = GRID_SIZE;
 		this.h = GRID_SIZE;
-		this.color = VisualLib.randomRangedColorString();
+		this.color = VisualLib.randomRangedColorString(250, 0);
 	}
 
-	Rect.prototype.changeColor = function() {
-		this.color = VisualLib.randomRangedColorString();
+	Rect.prototype.changeColor = function(dx, dy) {
+		this.color = VisualLib.randomRangedColorString(dx * 10 + dy * 100);
 	}
 
 	Rect.prototype.draw = function(context) {

@@ -1,26 +1,27 @@
 RetroCollection
 |-- games
-|	|-- snake
-|	|	|-- main_snake.js
-|	|	|-- snake.js
-|	|	`-- obstacles.js
-|	|-- invaders
-|	|	|-- main_invaders.js
-|	|	|-- enemies.js
-|	|	|-- player.js
-|	|	`-- space.js
+|   |-- colorTest
+|   |   |-- mainColorTest.js
+|   |-- empty
+|   |   |-- empty.js
 |	|-- preview
-|	|	|-- Snake.png
-|	|	|-- "Space Invaders.png"
-|	|	`-- Test.png
+|   |   |-- ColorTest.png
+|   |   |-- Snake.png
+|   |   |-- SpaceInvaders.png
+|   |   `-- empty.png
+|   |-- snake
+|   |   |-- mainSnake.js
+|   |   |-- obstacles.js
+|   |   `-- snake.js
 |	`-- menu.js
 |-- lib
-|	|-- visualLib.js
-|	`-- mathLib.js
+|   |-- inputLib.js
+|	|-- mathLib.js
+|	`-- visualLib.js
 |-- styles
 |	`-- layout.css
 |-- .gitignore
+|-- README.md
 |-- folderStructure.txt
 |-- index.html
-|-- index.js
-`-- README.md
+`-- index.js

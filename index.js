@@ -31,8 +31,13 @@ window.onload = function() {
 	SC.innerHTML = "SCORE = 0";
 	FPS.innerHTML = "FPS = 0";
 	window.onkeydown = InputLib.processKeyboardInput;
-
+	// tab loses focus
+	document.addEventListener("visibilitychange", test);
 	initLoop(30);
+}
+
+function test(e) {
+	GAME.pause = true;
 }
 
 function initLoop(stepsPerSecond) {

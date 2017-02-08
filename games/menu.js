@@ -9,12 +9,15 @@ var Menu = (function(){
 	currGame = 0; // game that is selected in Menu
 
 	Menu = function() {
+	GAME = new Empty();
+	GAME.pause = true;
+
 		positions.push({x: (WIDTH / 2 - 425), y: (HEIGHT - 185), width: 200, height: 150});
 		positions.push({x: (WIDTH / 2 - 150), y: (HEIGHT - 295), width: 300, height: 225});
 		positions.push({x: (WIDTH / 2 + 225), y: (HEIGHT - 185), width: 200, height: 150});
 
 		this.gameObjects = [];
-		this.currActiveGame = 0; // game that is played right now
+		this.currActiveGame = -1; // game that is played right now
 
 		for (var i = 0; i < games.length; i++) {
 			this.gameObjects.push(new GameObject(games[i].name, games[i].desc, 0, 0, 0, 0));
@@ -155,9 +158,13 @@ var Menu = (function(){
 			if (this.name === games[currGame].name) {
 				var description = (this.description === "") ? "This Game is not implemented yet, come back later." : this.description;
 				context.fillText(description, 10, 50);
-				if (GAME.finished() && currGame === MENU.currActiveGame)
-					context.fillText("Hit Enter to restart", 10, 90);
-				else if (this.description != "")
+
+				if (currGame === MENU.currActiveGame) {
+					if (GAME.finished())
+						context.fillText("Hit Enter to restart", 10, 90);
+					else
+						context.fillText("Hit Enter to continue", 10, 90);
+				} else if (this.description != "")
 					context.fillText("Hit Enter to play", 10, 90);
 			}
 		}

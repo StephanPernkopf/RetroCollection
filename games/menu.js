@@ -5,7 +5,6 @@ var Menu = (function(){
 	games.push({name: "Test", desc: ""});
 	games.push({name: "ColorTest", desc: "color test"});
 
-	var count = 0;
 	positions = [];
 	currGame = 0; // game that is selected in Menu
 
@@ -121,8 +120,9 @@ var Menu = (function(){
 		var imageLocation = (this.description === "") ? "empty" : this.name;
 		this.img = new Image();
 		this.img.src = "games/preview/" + imageLocation + ".png";
-		this.img.onload = function() {
-			count++;
+		this.loaded = false;
+		this.img.onload = function(e, a) {
+			this.loaded = true;
 		}
 	}
 
@@ -134,9 +134,10 @@ var Menu = (function(){
 
 			context.fillText(currGame + 1 + "/" + games.length, WIDTH / 2 - 150, HEIGHT - 40);
 
-			if (count === games.length) {
+			if (this.img.loaded) {
 				context.drawImage(this.img, this.location.x, this.location.y, this.width, this.height);
 			} else {
+				// Fallback when Image was not loaded
 				context.fillRect(this.location.x, this.location.y, this.width, this.height);
 			}
 

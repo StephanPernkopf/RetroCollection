@@ -1,7 +1,7 @@
 var Menu = (function(){
 	var games = [];
 	games.push({name: "Snake", desc: "Classic Snake game. EAT ALL FRUITS!!!"})
-	games.push({name: "SpaceInvaders", desc: ""});
+	games.push({name: "SpaceInvaders", desc: "SpaceInvaders ftw"});
 	games.push({name: "Test", desc: ""});
 	games.push({name: "ColorTest", desc: "color test"});
 
@@ -111,10 +111,8 @@ var Menu = (function(){
 
 		if (games[currGame].name == "Snake")
 			GAME = new MainSnake();
-		// else if (games[currGame] == "SpaceInvaders")
-		// 	GAME = new MainInvaders();
-		// else if (games[currGame] == "Test")
-		// 	GAME = new MainTest();
+		else if (games[currGame].name == "SpaceInvaders")
+			GAME = new MainInvaders();
 		else if (games[currGame].name == "ColorTest")
 			GAME = new MainColorTest();
 		else

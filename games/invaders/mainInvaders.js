@@ -1,18 +1,19 @@
 var MainInvaders = (function() {
-	
+
 	var gameOver = false;
 	var player;
 	var enemies = [];
 	var bullets = [];
 	var bulletSize = 8;
-	var speed = 8;
-	
+	var bulletSpeed = 16;
+
 	var score = 0;
-	
+
 
 	MainInvaders = function() {
 		this.pause = false;
 		player = new Player();
+		enemies.splice(0, enemies.length);
 		bullets = [];
 		gameOver = false;
 		score = 0;
@@ -22,7 +23,6 @@ var MainInvaders = (function() {
 				enemies.push(new Alien(j * 60, i * 60));
 			}
 		}
-		
 	}
 
 	MainInvaders.prototype.finished = function() {
@@ -30,8 +30,16 @@ var MainInvaders = (function() {
 	}
 
 	MainInvaders.prototype.update = function(score) {
+		if (this.pause || gameOver) {
+			return;
+		}
+		checkInputs();
+		player.move();
+
+		moveEnemies(this);
+
 		if (player.bullet != undefined) {
-			player.bullet.y -= speed;
+			player.bullet.y -= bulletSpeed;
 
 			if (player.bullet.y < 0) {
 				player.bullet = undefined;
@@ -47,8 +55,37 @@ var MainInvaders = (function() {
 				}
 			}
 		}
+	}
 
+	function moveEnemies(mainInvaders) {
+		var hitEdge = false;
+		var hitPlayer = false;
 
+		for (var i = 0; i < enemies.length; i++) {
+			enemies[i].move();
+			if (enemies[i].location.x + enemies[i].size / 2 > WIDTH || enemies[i].location.x - enemies[i].size / 2 < 0) {
+				hitEdge = true;
+			}
+
+			if (enemies[i].location.y + enemies[i].size / 2 >= player.location.y - player.size / 2) {
+				mainInvaders.pause = true;
+				gameOver = true;
+			}
+		}
+
+		if (hitEdge) {
+			for (var i = 0; i < enemies.length; i++) {
+				enemies[i].changeDir();
+			}
+		}
+	}
+
+	function checkInputs() {
+		if (player.xMovement > 0 && InputLib.getKeyPressed("RIGHT_ARROW") == 0.0) {
+			player.setXMovement(0);
+		} else if(player.xMovement < 0 && InputLib.getKeyPressed("LEFT_ARROW") == 0.0) {
+			player.setXMovement(0);
+		}
 	}
 
 	MainInvaders.prototype.render = function(context) {
@@ -70,22 +107,18 @@ var MainInvaders = (function() {
 		}
 
 	}
-	
-	MainInvaders.prototype.directionalInput = function(id, dx, dy) {
-
-	}
 
 	MainInvaders.prototype.binaryInput = function(id, btn_code) {
 		if (btn_code == "SPACE_KEY") {
             player.shoot();
-        } else if (btn_code == "A_KEY" || btn_code == "LEFT_KEY") {
-            player.move(-speed);
+        } else if (btn_code == "A_KEY" || btn_code == "LEFT_ARROW") {
+            player.setXMovement(-1);
         } else if (btn_code == "W_KEY") {
-            
-        } else if (btn_code == "D_KEY" || btn_code == "RIGHT_KEY") {
-            player.move(speed);
+
+        } else if (btn_code == "D_KEY" || btn_code == "RIGHT_ARROW") {
+            player.setXMovement(1);
         } else if (btn_code == "S_KEY") {
-            
+
         }
 	}
 

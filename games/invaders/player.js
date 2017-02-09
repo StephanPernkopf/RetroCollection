@@ -1,5 +1,6 @@
 var Player = (function(){
 	var lives;
+	var speed = 10;
 
 	Player = function() {
 		lives = 5;
@@ -10,10 +11,17 @@ var Player = (function(){
 		this.location = new MathLib.Point(x, y);
 		this.color = 'rgb(0, 0, 0)';
 		this.bullet = undefined;
+		this.xMovement = 0;
 	}
 
-	Player.prototype.move = function(dx) {
-		var newX = this.location.x + dx;
+	Player.prototype.setXMovement = function(dx) {
+		if (dx <= 1 && dx >= -1) {
+			this.xMovement = dx;
+		}
+	}
+
+	Player.prototype.move = function() {
+		var newX = this.location.x + this.xMovement * speed;
 
 		if (newX - this.size > 0 && newX + this.size < WIDTH) {
 			this.location.x = newX;
@@ -26,7 +34,7 @@ var Player = (function(){
 		} else {
 
 		}
-	
+
 	}
 
 	Player.prototype.render = function(context) {

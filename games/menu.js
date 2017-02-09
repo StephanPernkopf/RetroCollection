@@ -70,31 +70,16 @@ var Menu = (function(){
 
 	}
 
-	Menu.prototype.directionalInput = function(id, dx, dy) {
-		if (dx == -1 && dy == 0) {
-			currGame = getPred(currGame);
-			this.gameObjects = switchPositions(this.gameObjects, currGame);
-		} else if (dx == 1 && dy == 0) {
-			currGame = getSucc(currGame);
-			this.gameObjects = switchPositions(this.gameObjects, currGame);
-		} else if (dx == 0 && dy == 1) {
-			if (startGame(this.currActiveGame)) {
-				this.currActiveGame	= currGame;
-			};
-		}
-	}
-
 	Menu.prototype.binaryInput = function(id, btn_code) {
-		if (btn_code == "ENTER_KEY" || btn_code == "SPACE_KEY" ||
-			btn_code == "W_KEY") {
+		if (btn_code == "UP_ARROW") {
 
 			if (startGame(this.currActiveGame)) {
 				this.currActiveGame	= currGame;
 			};
-		} else if (btn_code == "A_KEY") {
+		} else if (btn_code == "LEFT_ARROW") {
 			currGame = getPred(currGame);
 			this.gameObjects = switchPositions(this.gameObjects, currGame);
-		} else  if (btn_code == "D_KEY") {
+		} else  if (btn_code == "RIGHT_ARROW") {
 			currGame = getSucc(currGame);
 			this.gameObjects = switchPositions(this.gameObjects, currGame);
 		}

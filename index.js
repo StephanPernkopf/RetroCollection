@@ -33,7 +33,10 @@ window.onload = function() {
 	FPS = document.getElementById("fps");
 	SC.innerHTML = "SCORE = 0";
 	FPS.innerHTML = "FPS = 0";
+	InputLib.initInputLib();
 	window.onkeydown = InputLib.processKeyboardInput;
+	window.onkeyup = InputLib.processKeyUp;
+
 	// tab loses focus
 	document.addEventListener("visibilitychange", test);
 	initLoop(30);

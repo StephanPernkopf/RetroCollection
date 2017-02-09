@@ -17,14 +17,18 @@ var MainColorTest = (function() {
 		}
 	}
 
-	MainColorTest.prototype.directionalInput = function(id, dx, dy) {
+	MainColorTest.prototype.binaryInput = function(id, btn_code) {
+		var rand = Math.random();
+		for (var i = 0; i < rectangles.length; i++) {
+			rectangles[i].changeColor(rand);
+		}
+	}
+
+	MainColorTest.prototype.rawInput = function(id, btn_code, value) {
 		for (var i = 0; i < rectangles.length; i++) {
 			rectangles[i].changeColor(dx, dy);
 		}
 	}
-
-	MainColorTest.prototype.binaryInput = function(id, btn_code) {}
-	MainColorTest.prototype.rawInput = function(id, btn_code, value) {}
 
 	MainColorTest.prototype.update = function() {
 		
@@ -47,11 +51,11 @@ var MainColorTest = (function() {
 		this.y = y;
 		this.w = GRID_SIZE;
 		this.h = GRID_SIZE;
-		this.color = VisualLib.randomRangedColorString(250, 0);
+		this.color = VisualLib.randomRangedColorString(360, 0);
 	}
 
-	Rect.prototype.changeColor = function(dx, dy) {
-		this.color = VisualLib.randomRangedColorString(dx * 10 + dy * 100);
+	Rect.prototype.changeColor = function(rand) {
+		this.color = VisualLib.randomRangedColorString(rand * 360, 0);
 	}
 
 	Rect.prototype.draw = function(context) {

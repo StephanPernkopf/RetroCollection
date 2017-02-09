@@ -1,0 +1,148 @@
+body {
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    text-align: center;
+    color: rgb(255, 255, 255);
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: default;
+
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.header, .footer {
+    background-color: rgb(30, 30, 30);
+}
+
+.wrapper {
+    background-color: rgb(22, 122, 198);
+
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.align-top {
+    align-self: flex-start;
+}
+
+.align-bottom {
+    align-self: flex-end;
+}
+
+.alert {
+    width: 960px;
+    max-width: 100%;
+
+    margin: 0 0 15px 0;
+    padding: 20px 0 20px 0;
+}
+
+.alert-info {
+    background-color: rgb(75, 176, 79);
+}
+
+.alert-error {
+    background-color: rgb(244, 67, 54);
+    display: none;
+}
+
+.close-btn {
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+
+    transition: 0.3s;
+    margin: 0 30px 0 0;
+    float: right;
+}
+
+.close-btn:hover {
+    color: rgb(0, 0, 0);
+}
+
+#playground {
+    background-color: rgb(255, 255, 255);
+    max-width: 100%;
+
+    flex: 1, 0;
+}
+
+.hud {
+    background-color: rgb(30, 30, 30);
+    width: 960px;
+    max-width: 100%;
+
+    display: flex;
+    flex: 1, 0;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.hud-cell {
+    margin: 0;
+    padding: 0;
+
+    flex: 1;
+}
+
+.octocat:hover {
+    background-color: rgb(64, 64, 64);
+}
+
+.octocat:hover .octo-arm {
+    animation: octocat-wave 800ms ease-in-out;
+    animation-iteration-count: infinite;
+}
+
+@keyframes octocat-wave {
+    0%, 100% {transform:rotate(0);}
+    20%, 60% {transform:rotate(-25deg);}
+    40%, 80% {transform:rotate(10deg);}
+}
+
+@media only screen and (max-height: 840px) {
+    .alert {
+        width: 640px;
+    }
+
+    #playground {
+        width: 640px;
+    }
+
+    .hud {
+        width: 640px;
+    }
+}
+
+@media only screen and (max-height: 480px) {
+    .alert-info {
+        display: none;
+    }
+
+    .alert-error {
+        display: block;
+    }
+
+    #playground {
+        display: none;
+    }
+
+    .hud {
+        display: none;
+    }
+}

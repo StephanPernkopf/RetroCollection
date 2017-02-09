@@ -1,0 +1,27 @@
+RetroCollection
+|-- games
+|   |-- colorTest
+|   |   |-- mainColorTest.js
+|   |-- empty
+|   |   |-- empty.js
+|	|-- preview
+|   |   |-- ColorTest.png
+|   |   |-- Snake.png
+|   |   |-- SpaceInvaders.png
+|   |   `-- empty.png
+|   |-- snake
+|   |   |-- mainSnake.js
+|   |   |-- obstacles.js
+|   |   `-- snake.js
+|	`-- menu.js
+|-- lib
+|   |-- inputLib.js
+|	|-- mathLib.js
+|	`-- visualLib.js
+|-- styles
+|	`-- layout.css
+|-- .gitignore
+|-- README.md
+|-- folderStructure.txt
+|-- index.html
+`-- index.js

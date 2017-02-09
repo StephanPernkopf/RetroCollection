@@ -1,20 +1,24 @@
-class Snake {
-	
-	constructor() {
+var Snake = (function(){
+	var bodyPartColors = [];
+
+	Snake = function() {
+		bodyPartColors = [VisualLib.randomRangedColorString()];
 		this.bodyParts = [];
-		this.bodyParts.push(new Point(WIDTH / 2 / GRID_SIZE, HEIGHT / 2 / GRID_SIZE));
-		this.bodyParts.push(new Point(this.bodyParts[0].x + 1, HEIGHT / 2 / GRID_SIZE));
-		this.direction = "DOWN";
+		var x = Math.floor(WIDTH / 2 / GRID_SIZE);
+		var y = Math.floor(HEIGHT / 2 / GRID_SIZE);
+		this.bodyParts.push(new MathLib.Point(x, y));
+		this.bodyParts.push(new MathLib.Point(this.bodyParts[0].x - 1, y));
+		this.direction = "RIGHT";
 		this.locked = false;
-		this.color = "#000000";
 	}
 
-	move() {
+	Snake.prototype.move = function() {
 		this.locked = false;
 		for (var i = this.bodyParts.length - 1; i > 0; i--) {
 			this.bodyParts[i] = this.bodyParts[i - 1].copy();
+			bodyPartColors[i] = bodyPartColors[i - 1];
 		}
-		
+
 		// move head
 		switch(this.direction) {
 		case "UP":
@@ -32,13 +36,13 @@ class Snake {
 		}
 
 		// prevent the snake from escaping the window
-		var w = WIDTH / GRID_SIZE;
-		var h = HEIGHT / GRID_SIZE;
-		
+		var w = Math.floor(WIDTH / GRID_SIZE);
+		var h = Math.floor(HEIGHT / GRID_SIZE);
+
 		if (this.bodyParts[0].x >= w) {
 			this.bodyParts[0].x -= w;
 		} else if (this.bodyParts[0].x < 0) {
-			this.bodyParts[0].x += w;			
+			this.bodyParts[0].x += w;
 		} else if (this.bodyParts[0].y >= h) {
 			this.bodyParts[0].y -= h;
 		} else if (this.bodyParts[0].y < 0) {
@@ -46,7 +50,7 @@ class Snake {
 		}
 	}
 
-	changeDirection(dir) {
+	Snake.prototype.changeDirection = function(dir) {
 		if (this.locked) return;
 
 		if (dir === "UP" && this.direction != "DOWN") {
@@ -65,7 +69,7 @@ class Snake {
 		this.locked = true;
 	}
 
-	collided() {
+	Snake.prototype.collided = function() {
 		for (var i = 1; i < this.bodyParts.length; i++) {
 			if (Math.floor(this.bodyParts[0].distTo(this.bodyParts[i])) === 0) {
 				return true;
@@ -75,23 +79,24 @@ class Snake {
 		return false;
 	}
 
-	intersects(point) {
+	Snake.prototype.intersects = function(point) {
 		return Math.floor(this.bodyParts[0].distTo(point)) === 0;
 	}
 
-	grow() {
+	Snake.prototype.grow = function(color) {
 		this.bodyParts.push(this.bodyParts[this.bodyParts.length - 1].copy());
+		bodyPartColors[0] = color;
 	}
 
-	draw() {
+	Snake.prototype.render = function(context) {
 		for (var i = 0; i < this.bodyParts.length; i++) {
 			var x = this.bodyParts[i].x * GRID_SIZE;
 			var y = this.bodyParts[i].y * GRID_SIZE;
-			
-			ctx.fillStyle = this.color;
-			ctx.fillRect(x,	y, GRID_SIZE, GRID_SIZE);
+
+			context.fillStyle = bodyPartColors[i];
+			context.fillRect(x,	y, GRID_SIZE, GRID_SIZE);
 		}
 	}
-}
 
-
+	return Snake;
+}());

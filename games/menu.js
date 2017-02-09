@@ -71,15 +71,34 @@ var Menu = (function(){
 	}
 
 	Menu.prototype.binaryInput = function(id, btn_code) {
-		if (btn_code == "UP_ARROW") {
+		if (btn_code == "UP_ARROW" || btn_code == "A_BUTTON") {
+			if (startGame(this.currActiveGame)) {
+				this.currActiveGame	= currGame;
+			};
+		} else if (btn_code == "LEFT_ARROW" || btn_code == "LEFT_BUMPER") {
+			currGame = getPred(currGame);
+			this.gameObjects = switchPositions(this.gameObjects, currGame);
+		} else  if (btn_code == "RIGHT_ARROW" || btn_code == "RIGHT_BUMPER") {
+			currGame = getSucc(currGame);
+			this.gameObjects = switchPositions(this.gameObjects, currGame);
+		}
+	}
+
+	Menu.prototype.rawInput = function(id, btn_code, value) {
+		if (btn_code == "LEFT_STICK_Y" && value < 0 ||
+			btn_code == "DPAD_Y" && value < 0) {
 
 			if (startGame(this.currActiveGame)) {
 				this.currActiveGame	= currGame;
 			};
-		} else if (btn_code == "LEFT_ARROW") {
+		} else if (btn_code == "LEFT_STICK_X" && value < 0 ||
+			btn_code == "DPAD_X" && value < 0) {
+
 			currGame = getPred(currGame);
 			this.gameObjects = switchPositions(this.gameObjects, currGame);
-		} else  if (btn_code == "RIGHT_ARROW") {
+		} else if (btn_code == "LEFT_STICK_X" && value > 0 ||
+			btn_code == "DPAD_X" && value > 0) {
+
 			currGame = getSucc(currGame);
 			this.gameObjects = switchPositions(this.gameObjects, currGame);
 		}

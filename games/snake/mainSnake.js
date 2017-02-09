@@ -32,7 +32,8 @@ var MainSnake = (function() {
 	}
 
 	MainSnake.prototype.binaryInput = function(id, btn_code) {
-		if (btn_code == "SPACE_KEY" || btn_code == "ENTER_KEY") {
+		if (btn_code == "SPACE_KEY" || btn_code == "ENTER_KEY" ||
+			btn_code == "A_BUTTON") {
             this.pause = !this.pause;
         } else if (btn_code == "LEFT_ARROW" || btn_code == "A_KEY") {
             snake.changeDirection("LEFT");
@@ -46,7 +47,23 @@ var MainSnake = (function() {
 	}
 
 	MainSnake.prototype.rawInput = function(id, btn_code, value) {
+		if (btn_code == "LEFT_STICK_X" && value < 0 ||
+			btn_code == "DPAD_X" && value < 0) {
 
+			snake.changeDirection("LEFT");
+		} else if (btn_code == "LEFT_STICK_Y" && value < 0 ||
+			btn_code == "DPAD_Y" && value < 0) {
+
+			snake.changeDirection("UP");
+		} else if (btn_code == "LEFT_STICK_X" && value > 0 ||
+			btn_code == "DPAD_X" && value > 0) {
+
+			snake.changeDirection("RIGHT");
+		} else if (btn_code == "LEFT_STICK_Y" && value > 0 ||
+			btn_code == "DPAD_Y" && value > 0) {
+
+			snake.changeDirection("DOWN");
+		}
 	}
 
 	MainSnake.prototype.update = function(score) {

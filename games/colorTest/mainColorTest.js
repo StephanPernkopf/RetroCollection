@@ -25,8 +25,9 @@ var MainColorTest = (function() {
 	}
 
 	MainColorTest.prototype.rawInput = function(id, btn_code, value) {
+		var rand = Math.random();
 		for (var i = 0; i < rectangles.length; i++) {
-			rectangles[i].changeColor(dx, dy);
+			rectangles[i].changeColor(rand);
 		}
 	}
 

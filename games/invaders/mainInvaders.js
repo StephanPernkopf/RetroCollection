@@ -61,12 +61,17 @@ var MainInvaders = (function() {
 
 			if (player.bullet.y < 0) {
 				player.bullet = undefined;
+				if (InputLib.getKeyPressed("SPACE_KEY") == 1.0)
+					player.shoot();
 			}
 
 			for (var i = 0; i < enemies.length; i++) {
 				if (enemies[i].intersects(player.bullet, bulletSize / 2)) {
 					enemies.splice(i, 1);
 					player.bullet = undefined;
+					if (InputLib.getKeyPressed("SPACE_KEY") == 1.0)
+						player.shoot();
+
 					score += 5;
 					scoreParagraph.innerHTML = "SCORE = " + score;
 

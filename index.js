@@ -39,7 +39,7 @@ window.onload = function() {
 
 	// tab loses focus
 	document.addEventListener("visibilitychange", test);
-	initLoop(30);
+	initLoop(120);
 }
 
 function test(e) {

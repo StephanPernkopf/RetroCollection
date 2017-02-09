@@ -1,6 +1,6 @@
 var Player = (function(){
 	var lives;
-	var speed = 10;
+	var speed = 2.5;
 
 	Player = function() {
 		lives = 5;

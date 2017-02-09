@@ -7,6 +7,9 @@ var GAME;
 var MENU;
 var SC;
 var FPS;
+var rAF = window.mozRequestAnimationFrame ||
+	window.webkitRequestAnimationFrame ||
+	window.requestAnimationFrame;
 
 var DRAW_TIME_PREVIOUS = 0;
 var DRAW_TIME_LAG = 0;
@@ -30,9 +33,17 @@ window.onload = function() {
 	FPS = document.getElementById("fps");
 	SC.innerHTML = "SCORE = 0";
 	FPS.innerHTML = "FPS = 0";
+	InputLib.initInputLib();
 	window.onkeydown = InputLib.processKeyboardInput;
+	window.onkeyup = InputLib.processKeyUp;
 
+	// tab loses focus
+	document.addEventListener("visibilitychange", test);
 	initLoop(30);
+}
+
+function test(e) {
+	GAME.pause = true;
 }
 
 function initLoop(stepsPerSecond) {
@@ -40,7 +51,7 @@ function initLoop(stepsPerSecond) {
 	DRAW_TIME_LAG = 0;
 	UPDATE_INTERVAL = 1 / stepsPerSecond;
 	AVG_TIMER = new avgTimer();
-	requestAnimationFrame(loop);
+	rAF(loop);
 }
 
 function loop() {
@@ -50,7 +61,7 @@ function loop() {
 	var current = performance.now();
 	DRAW_TIME_LAG += Math.min(1, (current - DRAW_TIME_PREVIOUS) / 1000);
 
-	// InputLib.processGamepadInput();
+	InputLib.processGamepadInput();
 
 	var safeguard = 0;
 	while(DRAW_TIME_LAG >= UPDATE_INTERVAL && safeguard < 8) {
@@ -75,7 +86,7 @@ function loop() {
 	}
 
 	DRAW_TIME_PREVIOUS = current;
-	requestAnimationFrame(loop);
+	rAF(loop);
 }
 
 var avgTimer = (function() {

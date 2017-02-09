@@ -5,7 +5,6 @@ var Menu = (function(){
 	games.push({name: "Test", desc: ""});
 	games.push({name: "ColorTest", desc: "color test"});
 
-	var count = 0;
 	positions = [];
 	currGame = 0; // game that is selected in Menu
 
@@ -71,31 +70,35 @@ var Menu = (function(){
 
 	}
 
-	Menu.prototype.directionalInput = function(id, dx, dy) {
-		if (dx == -1 && dy == 0) {
-			currGame = getPred(currGame);
-			this.gameObjects = switchPositions(this.gameObjects, currGame);
-		} else if (dx == 1 && dy == 0) {
-			currGame = getSucc(currGame);
-			this.gameObjects = switchPositions(this.gameObjects, currGame);
-		} else if (dx == 0 && dy == 1) {
+	Menu.prototype.binaryInput = function(id, btn_code) {
+		if (btn_code == "UP_ARROW" || btn_code == "A_BUTTON") {
 			if (startGame(this.currActiveGame)) {
 				this.currActiveGame	= currGame;
 			};
+		} else if (btn_code == "LEFT_ARROW" || btn_code == "LEFT_BUMPER") {
+			currGame = getPred(currGame);
+			this.gameObjects = switchPositions(this.gameObjects, currGame);
+		} else  if (btn_code == "RIGHT_ARROW" || btn_code == "RIGHT_BUMPER") {
+			currGame = getSucc(currGame);
+			this.gameObjects = switchPositions(this.gameObjects, currGame);
 		}
 	}
 
-	Menu.prototype.binaryInput = function(id, btn_code) {
-		if (btn_code == "ENTER_KEY" || btn_code == "SPACE_KEY" ||
-			btn_code == "W_KEY") {
+	Menu.prototype.rawInput = function(id, btn_code, value) {
+		if (btn_code == "LEFT_STICK_Y" && value < 0 ||
+			btn_code == "DPAD_Y" && value < 0) {
 
 			if (startGame(this.currActiveGame)) {
 				this.currActiveGame	= currGame;
 			};
-		} else if (btn_code == "A_KEY") {
+		} else if (btn_code == "LEFT_STICK_X" && value < 0 ||
+			btn_code == "DPAD_X" && value < 0) {
+
 			currGame = getPred(currGame);
 			this.gameObjects = switchPositions(this.gameObjects, currGame);
-		} else  if (btn_code == "D_KEY") {
+		} else if (btn_code == "LEFT_STICK_X" && value > 0 ||
+			btn_code == "DPAD_X" && value > 0) {
+
 			currGame = getSucc(currGame);
 			this.gameObjects = switchPositions(this.gameObjects, currGame);
 		}
@@ -130,8 +133,9 @@ var Menu = (function(){
 		var imageLocation = (this.description === "") ? "empty" : this.name;
 		this.img = new Image();
 		this.img.src = "games/preview/" + imageLocation + ".png";
-		this.img.onload = function() {
-			count++;
+		this.loaded = false;
+		this.img.onload = function(e, a) {
+			this.loaded = true;
 		}
 	}
 
@@ -143,9 +147,10 @@ var Menu = (function(){
 
 			context.fillText(currGame + 1 + "/" + games.length, WIDTH / 2 - 150, HEIGHT - 40);
 
-			if (count === games.length) {
+			if (this.img.loaded) {
 				context.drawImage(this.img, this.location.x, this.location.y, this.width, this.height);
 			} else {
+				// Fallback when Image was not loaded
 				context.fillRect(this.location.x, this.location.y, this.width, this.height);
 			}
 

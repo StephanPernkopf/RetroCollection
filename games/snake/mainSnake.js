@@ -31,34 +31,39 @@ var MainSnake = (function() {
 		}
 	}
 
-	MainSnake.prototype.directionalInput = function(id, dx, dy) {
-		if (dx == -1 && dy == 0) {
-			snake.changeDirection("LEFT");
-		} else if (dx == 0 && dy == 1) {
-			snake.changeDirection("UP");
-		} else if (dx == 1 && dy == 0) {
-			snake.changeDirection("RIGHT");
-		} else if (dx == 0 && dy == -1) {
-			snake.changeDirection("DOWN");
-		}
-	}
-
 	MainSnake.prototype.binaryInput = function(id, btn_code) {
-		if (btn_code == "SPACE_KEY") {
+		if (btn_code == "SPACE_KEY" || btn_code == "ENTER_KEY" ||
+			btn_code == "A_BUTTON") {
             this.pause = !this.pause;
-        } else if (btn_code == "A_KEY") {
+        } else if (btn_code == "LEFT_ARROW" || btn_code == "A_KEY") {
             snake.changeDirection("LEFT");
-        } else if (btn_code == "W_KEY") {
+        } else if (btn_code == "UP_ARROW" || btn_code == "W_KEY") {
             snake.changeDirection("UP");
-        } else if (btn_code == "D_KEY") {
+        } else if (btn_code == "RIGHT_ARROW" || btn_code == "D_KEY") {
             snake.changeDirection("RIGHT");
-        } else if (btn_code == "S_KEY") {
+        } else if (btn_code == "DOWN_ARROW" || btn_code == "S_KEY") {
             snake.changeDirection("DOWN");
         }
 	}
 
 	MainSnake.prototype.rawInput = function(id, btn_code, value) {
+		if (btn_code == "LEFT_STICK_X" && value < 0 ||
+			btn_code == "DPAD_X" && value < 0) {
 
+			snake.changeDirection("LEFT");
+		} else if (btn_code == "LEFT_STICK_Y" && value < 0 ||
+			btn_code == "DPAD_Y" && value < 0) {
+
+			snake.changeDirection("UP");
+		} else if (btn_code == "LEFT_STICK_X" && value > 0 ||
+			btn_code == "DPAD_X" && value > 0) {
+
+			snake.changeDirection("RIGHT");
+		} else if (btn_code == "LEFT_STICK_Y" && value > 0 ||
+			btn_code == "DPAD_Y" && value > 0) {
+
+			snake.changeDirection("DOWN");
+		}
 	}
 
 	MainSnake.prototype.update = function(score) {

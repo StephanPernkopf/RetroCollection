@@ -36,7 +36,7 @@ var MainInvaders = (function() {
 		return gameOver;
 	}
 
-	MainInvaders.prototype.update = function(score) {
+	MainInvaders.prototype.update = function(scoreParagraph) {
 		if (this.pause || gameOver) {
 			return;
 		}
@@ -67,8 +67,14 @@ var MainInvaders = (function() {
 				if (enemies[i].intersects(player.bullet, bulletSize / 2)) {
 					enemies.splice(i, 1);
 					player.bullet = undefined;
-					console.log("hit");
-					// TODO: increase Score
+					score += 5;
+					scoreParagraph.innerHTML = "SCORE = " + score;
+
+					if (enemies.length == 0) {
+						scoreParagraph.innerHTML = "YOU WON! WITH A SCORE OF " + score;
+						this.pause = true;
+						gameOver = true;
+					}
 					break;
 				}
 			}

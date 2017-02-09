@@ -1,6 +1,6 @@
 var Alien = (function() {
 
-	var speed = 2;
+	var speed = 20;
 
 	Alien = function(x, y) {
 		this.location = new MathLib.Point(x, y);

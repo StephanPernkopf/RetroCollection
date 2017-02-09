@@ -9,6 +9,9 @@ var MainInvaders = (function() {
 
 	var score = 0;
 
+	var moveCounter = 0;
+	var speedCap = 30;
+	var gameProgress = 0;
 
 	MainInvaders = function() {
 		this.pause = false;
@@ -17,6 +20,10 @@ var MainInvaders = (function() {
 		bullets = [];
 		gameOver = false;
 		score = 0;
+
+		moveCounter = 0;
+		speedCap = 30;
+		gameProgress = 0;
 
 		for (var i = 1; i <= 5; i++) {
 			for (var j = 1; j <= 11; j++) {
@@ -36,7 +43,18 @@ var MainInvaders = (function() {
 		checkInputs();
 		player.move();
 
-		moveEnemies(this);
+		// don't move enemies as often as the player
+		if (moveCounter >= speedCap) {
+			moveEnemies(this);
+			moveCounter = 0;
+			gameProgress++;
+
+			if (gameProgress == 10 && speedCap > 0) {
+				speedCap -= speedCap / 10; // change this number --> change gradually movementspeed increase
+				gameProgress = 0;
+			}
+		}
+		moveCounter++;
 
 		if (player.bullet != undefined) {
 			player.bullet.y -= bulletSpeed;

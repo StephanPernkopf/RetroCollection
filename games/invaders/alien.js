@@ -7,10 +7,12 @@ var Alien = (function() {
 		this.direction = 'left';
 	}
 
-	Alien.prototype.intersects = function(point) {
+	Alien.prototype.intersects = function(point, halfSize) {
 		if (point != undefined) {
-			var hitX = point.x > this.location.x - this.size / 2 && point.x < this.location.x + this.size / 2;
-			var hitY = point.y > this.location.y - this.size / 2 && point.y < this.location.y + this.size / 2;
+			var hitX = point.x + halfSize > this.location.x - this.size / 2 && 
+						point.x - halfSize < this.location.x + this.size / 2;
+			var hitY = point.y + halfSize > this.location.y - this.size / 2 
+						&& point.y - halfSize < this.location.y + this.size / 2;
 			
 			return hitX && hitY;
 		}

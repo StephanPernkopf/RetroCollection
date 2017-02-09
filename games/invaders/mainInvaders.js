@@ -38,7 +38,7 @@ var MainInvaders = (function() {
 			}
 
 			for (var i = 0; i < enemies.length; i++) {
-				if (enemies[i].intersects(player.bullet)) {
+				if (enemies[i].intersects(player.bullet, bulletSize / 2)) {
 					enemies.splice(i, 1);
 					player.bullet = undefined;
 					console.log("hit");

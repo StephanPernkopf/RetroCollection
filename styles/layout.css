@@ -33,6 +33,7 @@ body {
     justify-content: center;
 }
 
+/* source: ["Solved by Flexbox": https://philipwalton.github.io/solved-by-flexbox/] */
 .align-top {
     align-self: flex-start;
 }
@@ -41,6 +42,7 @@ body {
     align-self: flex-end;
 }
 
+/* source: ["How TO - Alerts": http://www.w3schools.com/howto/howto_js_alert.asp] */
 .alert {
     width: 960px;
     max-width: 100%;
@@ -100,6 +102,7 @@ body {
     flex: 1;
 }
 
+/* Inspired by: ["GitHub Corners": http://tholman.com/github-corners/] */
 .octocat:hover {
     background-color: rgb(64, 64, 64);
 }

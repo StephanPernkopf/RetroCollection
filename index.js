@@ -74,7 +74,9 @@ function loop() {
 			LAST_FRAME = current;
 		}
 
-		GAME.update(SC);
+		if (!GAME.pause) {
+			GAME.update(SC);
+		}
 		DRAW_TIME_LAG -= UPDATE_INTERVAL;
 		safeguard++;
 	}

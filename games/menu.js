@@ -71,8 +71,8 @@ var Menu = (function(){
 	}
 
 	Menu.prototype.binaryInput = function(id, btn_code) {
-		if (btn_code == "UP_ARROW" || btn_code == "A_BUTTON" ||
-			btn_code == "DPAD_UP") {
+		if (btn_code == "ENTER_KEY" || btn_code == "UP_ARROW" ||
+			btn_code == "A_BUTTON" || btn_code == "DPAD_UP") {
 			if (startGame(this.currActiveGame)) {
 				this.currActiveGame	= currGame;
 			};

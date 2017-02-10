@@ -3,9 +3,9 @@ var Alien = (function() {
 	var speed = 20;
 
 	Alien = function(x, y) {
-		this.location = new MathLib.Point(x, y);
+		this.location = new MathLib.Point(x, y); // center
 		this.color = 'rgb(0, 0, 0)';
-		this.size = 50; // TODO: adjust size
+		this.size = 50;
 		this.xMovement = 1;
 	}
 

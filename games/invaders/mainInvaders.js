@@ -50,7 +50,7 @@ var MainInvaders = (function() {
 			gameProgress++;
 
 			if (gameProgress == 10 && speedCap > 0) {
-				speedCap -= speedCap / 8; // change this number --> change gradually movementspeed increase
+				speedCap -= speedCap / 8; // this numbers changes gradually movementspeed increase
 				gameProgress = 0;
 			}
 		}
@@ -61,7 +61,7 @@ var MainInvaders = (function() {
 
 			if (player.bullet.y < 0) {
 				player.bullet = undefined;
-				if (InputLib.getKeyPressed("SPACE_KEY") == 1.0)
+				if (InputLib.getKeyPressed("SPACE_KEY") == 1.0 || InputLib.getKeyPressed("A_BUTTON") == 1.0)
 					player.shoot();
 			}
 
@@ -69,14 +69,14 @@ var MainInvaders = (function() {
 				if (enemies[i].intersects(player.bullet, bulletSize / 2)) {
 					enemies.splice(i, 1);
 					player.bullet = undefined;
-					if (InputLib.getKeyPressed("SPACE_KEY") == 1.0)
+					if (InputLib.getKeyPressed("SPACE_KEY") == 1.0 || InputLib.getKeyPressed("A_BUTTON") == 1.0)
 						player.shoot();
 
 					score += 5;
 					scoreParagraph.innerHTML = "SCORE = " + score;
 
 					if (enemies.length == 0) {
-						scoreParagraph.innerHTML = "YOU WON! WITH A SCORE OF " + score;
+						scoreParagraph.innerHTML = "YOU WON!";
 						this.pause = true;
 						gameOver = true;
 					}
@@ -102,6 +102,7 @@ var MainInvaders = (function() {
 			}
 		}
 
+		// time to turn
 		if (hitEdge) {
 			for (var i = 0; i < enemies.length; i++) {
 				enemies[i].changeDir();
@@ -110,10 +111,38 @@ var MainInvaders = (function() {
 	}
 
 	function checkInputs() {
-		if (player.xMovement > 0 && InputLib.getKeyPressed("RIGHT_ARROW") == 0.0) {
-			player.setXMovement(0);
-		} else if(player.xMovement < 0 && InputLib.getKeyPressed("LEFT_ARROW") == 0.0) {
-			player.setXMovement(0);
+		if (player.rawInput) {
+			if (player.xMovement != InputLib.getKeyPressed("LEFT_STICK_X")) {
+				player.setXMovement(InputLib.getKeyPressed("LEFT_STICK_X"), true);
+			}
+		} else {
+			if (player.xMovement > 0 &&
+					(InputLib.getKeyPressed("RIGHT_ARROW") == 0.0)
+						&& InputLib.getKeyPressed("D_KEY") == 0.0
+						&& InputLib.getKeyPressed("DPAD_RIGHT") == 0.0) {
+				player.setXMovement(0);
+			} else if(player.xMovement < 0 &&
+					(InputLib.getKeyPressed("LEFT_ARROW")) == 0.0
+						&& InputLib.getKeyPressed("A_KEY") == 0.0
+						&& InputLib.getKeyPressed("DPAD_LEFT") == 0.0) {
+				player.setXMovement(0);
+			}
+		}
+	}
+
+	MainInvaders.prototype.binaryInput = function(id, btn_code) {
+		if (btn_code == "SPACE_KEY" || btn_code == "A_BUTTON") {
+            player.shoot();
+        } else if (btn_code == "A_KEY" || btn_code == "LEFT_ARROW" || btn_code == "DPAD_LEFT") {
+            player.setXMovement(-1);
+        } else if (btn_code == "D_KEY" || btn_code == "RIGHT_ARROW" || btn_code == "DPAD_RIGHT") {
+            player.setXMovement(1);
+        }
+	}
+
+	MainInvaders.prototype.rawInput = function(id, btn_code, value) {
+		if (btn_code == "LEFT_STICK_X") {
+			player.setXMovement(value, true);
 		}
 	}
 
@@ -134,24 +163,6 @@ var MainInvaders = (function() {
 			context.fillStyle = "rgb(0, 0, 0)";
 			context.fillRect(bullets[i].location.x - bulletSize / 2, bullets[i].location.y - bulletSize / 2, bulletSize, bulletSize);
 		}
-
-	}
-
-	MainInvaders.prototype.binaryInput = function(id, btn_code) {
-		if (btn_code == "SPACE_KEY") {
-            player.shoot();
-        } else if (btn_code == "A_KEY" || btn_code == "LEFT_ARROW") {
-            player.setXMovement(-1);
-        } else if (btn_code == "W_KEY") {
-
-        } else if (btn_code == "D_KEY" || btn_code == "RIGHT_ARROW") {
-            player.setXMovement(1);
-        } else if (btn_code == "S_KEY") {
-
-        }
-	}
-
-	MainInvaders.prototype.rawInput = function(id, btn_code, value) {
 
 	}
 

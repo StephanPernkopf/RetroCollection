@@ -25,8 +25,7 @@ window.onload = function() {
 	WIDTH = Math.floor(canvas.width);
 	HEIGHT = Math.floor(canvas.height);
 
-	GAME = new MainSnake();
-	GAME.pause = true;
+
 	MENU = new Menu();
 
 	SC = document.getElementById("score");
@@ -38,11 +37,11 @@ window.onload = function() {
 	window.onkeyup = InputLib.processKeyUp;
 
 	// tab loses focus
-	document.addEventListener("visibilitychange", test);
-	initLoop(120);
+	document.addEventListener("visibilitychange", onchange);
+	initLoop(30);
 }
 
-function test(e) {
+function onchange(e) {
 	GAME.pause = true;
 }
 

@@ -1,37 +1,3 @@
-var Border = (function(){
-
-	Border = function() {
-		// TODO: Set Position
-		// var x = Math.floor(MathLib.random(WIDTH / GRID_SIZE));
-		// var y = Math.floor(MathLib.random(HEIGHT / GRID_SIZE));
-
-		this.location = new MathLib.Point(x, y);
-		this.size = GRID_SIZE;
-		this.color = VisualLib.randomColorString();
-	}
-
-	Border.prototype.render = function(context) {
-		// TODO: implement draw
-	}
-
-	Border.prototype.intersects = function(point) {
-		if (point instanceof Array) {
-
-			for (var i = 0; i < point.length; i++) {
-				 if (Math.floor(this.location.distTo(point[i]) === 0)) {
-					 return true;
-				 }
-			}
-
-			return false;
-		} else {
-			return Math.floor(this.location.distTo(point) === 0);
-		}
-	}
-
-	return Border;
-}());
-
 var Fruit = (function() {
 	Fruit = function() {
 		var x = Math.floor(MathLib.random(Math.floor(WIDTH / GRID_SIZE)));

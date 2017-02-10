@@ -5,11 +5,14 @@ var MainSnake = (function() {
 	var score = 0;
 	var gameOver = false;
 
+	var counter = 0;
+
 	MainSnake = function() {
 		GRID_SIZE = 12;
 		this.pause = false;
 		gameOver = false;
 		score = 0;
+		counter = 0;
 		snake = new Snake;
 		fruits.splice(0, fruits.length);
 		fruits.push(new Fruit);
@@ -35,59 +38,54 @@ var MainSnake = (function() {
 		if (btn_code == "SPACE_KEY" || btn_code == "ENTER_KEY" ||
 			btn_code == "A_BUTTON") {
             this.pause = !this.pause;
-        } else if (btn_code == "LEFT_ARROW" || btn_code == "A_KEY") {
+        } else if (btn_code == "LEFT_ARROW" || btn_code == "A_KEY" || btn_code == "DPAD_LEFT") {
             snake.changeDirection("LEFT");
-        } else if (btn_code == "UP_ARROW" || btn_code == "W_KEY") {
+        } else if (btn_code == "UP_ARROW" || btn_code == "W_KEY" || btn_code == "DPAD_UP") {
             snake.changeDirection("UP");
-        } else if (btn_code == "RIGHT_ARROW" || btn_code == "D_KEY") {
+        } else if (btn_code == "RIGHT_ARROW" || btn_code == "D_KEY" || btn_code == "DPAD_RIGHT") {
             snake.changeDirection("RIGHT");
-        } else if (btn_code == "DOWN_ARROW" || btn_code == "S_KEY") {
+        } else if (btn_code == "DOWN_ARROW" || btn_code == "S_KEY" || btn_code == "DPAD_DOWN") {
             snake.changeDirection("DOWN");
         }
 	}
 
 	MainSnake.prototype.rawInput = function(id, btn_code, value) {
-		if (btn_code == "LEFT_STICK_X" && value < 0 ||
-			btn_code == "DPAD_X" && value < 0) {
-
+		if (btn_code == "LEFT_STICK_X" && value < 0) {
 			snake.changeDirection("LEFT");
-		} else if (btn_code == "LEFT_STICK_Y" && value < 0 ||
-			btn_code == "DPAD_Y" && value < 0) {
-
+		} else if (btn_code == "LEFT_STICK_Y" && value < 0) {
 			snake.changeDirection("UP");
-		} else if (btn_code == "LEFT_STICK_X" && value > 0 ||
-			btn_code == "DPAD_X" && value > 0) {
-
+		} else if (btn_code == "LEFT_STICK_X" && value > 0) {
 			snake.changeDirection("RIGHT");
-		} else if (btn_code == "LEFT_STICK_Y" && value > 0 ||
-			btn_code == "DPAD_Y" && value > 0) {
-
+		} else if (btn_code == "LEFT_STICK_Y" && value > 0) {
 			snake.changeDirection("DOWN");
 		}
 	}
 
 	MainSnake.prototype.update = function(score) {
-		if (!this.pause && !gameOver) {
-			snake.move();
+		if (counter == 4) {
+			if (!this.pause && !gameOver) {
+				snake.move();
 
-			for (var i = fruits.length - 1; i >= 0; i--) {
-				if (snake.intersects(fruits[i].location)) {
-					snake.grow(fruits[i].color);
-					fruits.splice(i, 1);
-					increaseScore.call(this, score);
+				for (var i = fruits.length - 1; i >= 0; i--) {
+					if (snake.intersects(fruits[i].location)) {
+						snake.grow(fruits[i].color);
+						fruits.splice(i, 1);
+						increaseScore.call(this, score);
+					}
+				}
+
+				if (MathLib.random(1) < 1 / fruits.length / 50) {
+					addFruit.call(this);
+				}
+
+				if (snake.collided()) {
+					this.pause = true;
+					gameOver = true;
 				}
 			}
-
-			if (MathLib.random(1) < 1 / fruits.length / 50) {
-				addFruit.call(this);
-			}
-
-			if (snake.collided()) {
-				// TODO: GAME OVER
-				console.log("Game Over");
-				this.pause = true;
-				gameOver = true;
-			}
+			counter = 0;
+		} else {
+			counter++;
 		}
 	}
 

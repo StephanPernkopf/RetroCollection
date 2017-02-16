@@ -36,11 +36,14 @@ var Player = (function(){
 
 	Player.prototype.shoot = function() {
 		if (this.bullet == undefined) {
-			this.bullet = new MathLib.Point(this.location.x, this.location.y);
+			this.bullet = new Bullet(this.location.x, this.location.y, true);
 		}
 	}
 
 	Player.prototype.render = function(context) {
+		if (this.bullet != undefined) {
+			this.bullet.render(context);
+		}
 		context.fillStyle = this.color;
 		context.fillRect(this.location.x - this.size, this.location.y - this.size / 2, this.size * 2, this.size);
 	}

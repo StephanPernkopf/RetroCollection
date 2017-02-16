@@ -31,7 +31,7 @@ window.onload = function() {
 
 	SC = document.getElementById("score");
 	FPS = document.getElementById("fps");
-	SC.innerHTML = "SCORE = 0";
+	SC.innerHTML = "";
 	FPS.innerHTML = "FPS = 0";
 	InputLib.initInputLib();
 	window.onkeydown = InputLib.processKeyboardInput;

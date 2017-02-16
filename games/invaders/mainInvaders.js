@@ -4,10 +4,9 @@ var MainInvaders = (function() {
 	var player;
 	var enemies = [];
 	var bullets = [];
-	var bulletSize = 8;
-	var bulletSpeed = 4;
 
 	var score = 0;
+	var lives = 5;
 
 	var moveCounter = 0;
 	var speedCap = 120;
@@ -24,6 +23,7 @@ var MainInvaders = (function() {
 		moveCounter = 0;
 		speedCap = 120;
 		gameProgress = 0;
+		lives = 5;
 
 		for (var i = 1; i <= 5; i++) {
 			for (var j = 1; j <= 11; j++) {
@@ -50,30 +50,30 @@ var MainInvaders = (function() {
 			gameProgress++;
 
 			if (gameProgress == 10 && speedCap > 0) {
-				speedCap -= speedCap / 8; // this numbers changes gradually movementspeed increase
+				speedCap -= speedCap / 8; // this numbers changes the movementspeed increase
 				gameProgress = 0;
 			}
 		}
 		moveCounter++;
 
 		if (player.bullet != undefined) {
-			player.bullet.y -= bulletSpeed;
-
-			if (player.bullet.y < 0) {
+			player.bullet.move();
+			
+			if (player.bullet.location.y < 0) {
 				player.bullet = undefined;
 				if (InputLib.getKeyPressed("SPACE_KEY") == 1.0 || InputLib.getKeyPressed("A_BUTTON") == 1.0)
 					player.shoot();
 			}
-
+		}
+		if (player.bullet != undefined) {
 			for (var i = 0; i < enemies.length; i++) {
-				if (enemies[i].intersects(player.bullet, bulletSize / 2)) {
+				if (enemies[i].intersects(player.bullet.location, player.bullet.size / 2)) {
 					enemies.splice(i, 1);
 					player.bullet = undefined;
 					if (InputLib.getKeyPressed("SPACE_KEY") == 1.0 || InputLib.getKeyPressed("A_BUTTON") == 1.0)
 						player.shoot();
 
 					score += 5;
-					scoreParagraph.innerHTML = "SCORE = " + score;
 
 					if (enemies.length == 0) {
 						scoreParagraph.innerHTML = "YOU WON!";
@@ -84,6 +84,29 @@ var MainInvaders = (function() {
 				}
 			}
 		}
+
+		// move enemy bullets
+		for (var i = bullets.length - 1; i >= 0; i--) {
+			bullets[i].move();
+
+			// player has width of 2*size
+			if (bullets[i].intersects(player.location, player.size, player.size / 2)) {
+				lives--;
+				bullets.splice(i, 1);
+				break;
+			}
+
+			if (bullets[i].location.y > WIDTH) {
+				bullets.splice(i, 1);
+			}
+		}
+		if (lives > 0) {
+			scoreParagraph.innerHTML = "LIFECOUNT = " + lives + " SCORE = " + score;
+		} else {
+			scoreParagraph.innerHTML = "Your Score = " + score;
+			this.pause = true;
+			gameOver = true;
+		}
 	}
 
 	function moveEnemies(mainInvaders) {
@@ -92,6 +115,12 @@ var MainInvaders = (function() {
 
 		for (var i = 0; i < enemies.length; i++) {
 			enemies[i].move();
+			
+			var bullet = enemies[i].shoot(0.995);
+			if (bullet != undefined) {
+				bullets.push(bullet);
+			}
+			
 			if (enemies[i].location.x + enemies[i].size / 2 > WIDTH || enemies[i].location.x - enemies[i].size / 2 < 0) {
 				hitEdge = true;
 			}
@@ -150,18 +179,13 @@ var MainInvaders = (function() {
 		VisualLib.clearScreen(context);
 		player.render(context);
 
-		if (player.bullet != undefined) {
-			context.fillStyle = "rgb(0, 0, 0)";
-			context.fillRect(player.bullet.x - bulletSize / 2, player.bullet.y - bulletSize / 2, bulletSize, bulletSize);
-		}
 
 		for (var i = 0; i < enemies.length; i++) {
 			enemies[i].render(context);
 		}
 
 		for (var i = 0; i < bullets.length; i++) {
-			context.fillStyle = "rgb(0, 0, 0)";
-			context.fillRect(bullets[i].location.x - bulletSize / 2, bullets[i].location.y - bulletSize / 2, bulletSize, bulletSize);
+			bullets[i].render(context);
 		}
 
 	}

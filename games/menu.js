@@ -110,7 +110,7 @@ var Menu = (function(){
 			return false;
 		}
 
-		SC.innerHTML = "SCORE = 0";
+		SC.innerHTML = "";
 
 		if (games[currGame].name == "Snake")
 			GAME = new MainSnake();

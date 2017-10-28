@@ -4,7 +4,7 @@ var Alien = (function() {
 
 	Alien = function(x, y) {
 		this.location = new MathLib.Point(x, y); // center
-		this.color = 'rgb(0, 0, 0)';
+		this.color = VisualLib.randomColorString();
 		this.size = 50;
 		this.xMovement = 1;
 	}
@@ -30,6 +30,7 @@ var Alien = (function() {
 	}
 
 	Alien.prototype.render = function(context) {
+		context.fillStyle = this.color;
 		context.fillRect(this.location.x - this.size / 2,
 						 this.location.y - this.size / 2,
 						 this.size, this.size);

@@ -1,11 +1,11 @@
 var MainSnake = (function() {
 
-	var snake;
-	var fruits = [];
-	var score = 0;
-	var gameOver = false;
+	let snake;
+	let fruits = [];
+	let score = 0;
+	let gameOver = false;
 
-	var counter = 0;
+	let counter = 0;
 
 	MainSnake = function() {
 		GRID_SIZE = 12;
@@ -19,8 +19,8 @@ var MainSnake = (function() {
 	}
 
 	function addFruit() {
-		var fruit = new Fruit;
-		while(fruit.intersects(snake.bodyParts)) {
+		let fruit = new Fruit;
+		while (fruit.intersects(snake.bodyParts)) {
 			fruit = new Fruit;
 		}
 
@@ -37,16 +37,16 @@ var MainSnake = (function() {
 	MainSnake.prototype.binaryInput = function(id, btn_code) {
 		if (btn_code == "SPACE_KEY" || btn_code == "ENTER_KEY" ||
 			btn_code == "A_BUTTON") {
-            this.pause = !this.pause;
-        } else if (btn_code == "LEFT_ARROW" || btn_code == "A_KEY" || btn_code == "DPAD_LEFT") {
-            snake.changeDirection("LEFT");
-        } else if (btn_code == "UP_ARROW" || btn_code == "W_KEY" || btn_code == "DPAD_UP") {
-            snake.changeDirection("UP");
-        } else if (btn_code == "RIGHT_ARROW" || btn_code == "D_KEY" || btn_code == "DPAD_RIGHT") {
-            snake.changeDirection("RIGHT");
-        } else if (btn_code == "DOWN_ARROW" || btn_code == "S_KEY" || btn_code == "DPAD_DOWN") {
-            snake.changeDirection("DOWN");
-        }
+			this.pause = !this.pause;
+		} else if (btn_code == "LEFT_ARROW" || btn_code == "A_KEY" || btn_code == "DPAD_LEFT") {
+			snake.changeDirection("LEFT");
+		} else if (btn_code == "UP_ARROW" || btn_code == "W_KEY" || btn_code == "DPAD_UP") {
+			snake.changeDirection("UP");
+		} else if (btn_code == "RIGHT_ARROW" || btn_code == "D_KEY" || btn_code == "DPAD_RIGHT") {
+			snake.changeDirection("RIGHT");
+		} else if (btn_code == "DOWN_ARROW" || btn_code == "S_KEY" || btn_code == "DPAD_DOWN") {
+			snake.changeDirection("DOWN");
+		}
 	}
 
 	MainSnake.prototype.rawInput = function(id, btn_code, value) {
@@ -66,7 +66,7 @@ var MainSnake = (function() {
 			if (!this.pause && !gameOver) {
 				snake.move();
 
-				for (var i = fruits.length - 1; i >= 0; i--) {
+				for (let i = fruits.length - 1; i >= 0; i--) {
 					if (snake.intersects(fruits[i].location)) {
 						snake.grow(fruits[i].color);
 						fruits.splice(i, 1);
@@ -93,7 +93,7 @@ var MainSnake = (function() {
 		VisualLib.clearScreen(context);
 		snake.render(context);
 
-		for (var i = 0; i < fruits.length; i++) {
+		for (let i = 0; i < fruits.length; i++) {
 			fruits[i].render(context);
 		}
 	}

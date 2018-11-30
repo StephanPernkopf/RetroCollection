@@ -1,25 +1,25 @@
-var Menu = (function(){
-	var games = [];
-	games.push({name: "Snake", desc: "Classic Snake game. EAT ALL FRUITS!!!"})
-	games.push({name: "SpaceInvaders", desc: "SpaceInvaders ftw"});
-	games.push({name: "Test", desc: ""});
-	games.push({name: "ColorTest", desc: "color test"});
+var Menu = (function() {
+	let games = [];
+	games.push({ name: "Snake", desc: "Classic Snake game. EAT ALL FRUITS!!!" })
+	games.push({ name: "SpaceInvaders", desc: "SpaceInvaders ftw" });
+	games.push({ name: "Test", desc: "" });
+	games.push({ name: "ColorTest", desc: "color test" });
 
 	positions = [];
 	currGame = 0; // game that is selected in Menu
 
 	Menu = function() {
-	GAME = new Empty();
-	GAME.pause = true;
+		GAME = new Empty();
+		GAME.pause = true;
 
-		positions.push({x: (WIDTH / 2 - 425), y: (HEIGHT - 185), width: 200, height: 150});
-		positions.push({x: (WIDTH / 2 - 150), y: (HEIGHT - 295), width: 300, height: 225});
-		positions.push({x: (WIDTH / 2 + 225), y: (HEIGHT - 185), width: 200, height: 150});
+		positions.push({ x: (WIDTH / 2 - 425), y: (HEIGHT - 185), width: 200, height: 150 });
+		positions.push({ x: (WIDTH / 2 - 150), y: (HEIGHT - 295), width: 300, height: 225 });
+		positions.push({ x: (WIDTH / 2 + 225), y: (HEIGHT - 185), width: 200, height: 150 });
 
 		this.gameObjects = [];
 		this.currActiveGame = -1; // game that is played right now
 
-		for (var i = 0; i < games.length; i++) {
+		for (let i = 0; i < games.length; i++) {
 			this.gameObjects.push(new GameObject(games[i].name, games[i].desc, 0, 0, 0, 0));
 		}
 		this.gameObjects = switchPositions(this.gameObjects, currGame);
@@ -27,12 +27,12 @@ var Menu = (function(){
 
 	function switchPositions(arr, pos) {
 		if (arr instanceof Array) {
-			var pred = getPred(pos);
-			var succ = getSucc(pos);
+			let pred = getPred(pos);
+			let succ = getSucc(pos);
 
-			var runner = pred;
+			let runner = pred;
 
-			for (var i = 0; i < min(positions.length, arr.length); i++) {
+			for (let i = 0; i < min(positions.length, arr.length); i++) {
 				if (i === 1)
 					runner = pos;
 				else if (i === 2)
@@ -63,10 +63,10 @@ var Menu = (function(){
 		context.fillStyle = 'rgba(0, 0, 0, 0.7)';
 		context.fillRect(0, 0, WIDTH, HEIGHT);
 
-		var pred = getPred(currGame);
-		var succ = getSucc(currGame);
+		let pred = getPred(currGame);
+		let succ = getSucc(currGame);
 
-		var color = 'rgb(0, 255, 0)';
+		let color = 'rgb(0, 255, 0)';
 		this.gameObjects[pred].render(context, color);
 		this.gameObjects[currGame].render(context, color);
 		this.gameObjects[succ].render(context, color);
@@ -77,13 +77,13 @@ var Menu = (function(){
 		if (btn_code == "ENTER_KEY" || btn_code == "UP_ARROW" ||
 			btn_code == "A_BUTTON" || btn_code == "DPAD_UP") {
 			if (startGame(this.currActiveGame)) {
-				this.currActiveGame	= currGame;
+				this.currActiveGame = currGame;
 			};
 		} else if (btn_code == "LEFT_ARROW" || btn_code == "LEFT_BUMPER" ||
 			btn_code == "DPAD_LEFT") {
 			currGame = getPred(currGame);
 			this.gameObjects = switchPositions(this.gameObjects, currGame);
-		} else  if (btn_code == "RIGHT_ARROW" || btn_code == "RIGHT_BUMPER" ||
+		} else if (btn_code == "RIGHT_ARROW" || btn_code == "RIGHT_BUMPER" ||
 			btn_code == "DPAD_RIGHT") {
 			currGame = getSucc(currGame);
 			this.gameObjects = switchPositions(this.gameObjects, currGame);
@@ -94,7 +94,7 @@ var Menu = (function(){
 		if (btn_code == "LEFT_STICK_Y" && value < 0) {
 
 			if (startGame(this.currActiveGame)) {
-				this.currActiveGame	= currGame;
+				this.currActiveGame = currGame;
 			};
 		} else if (btn_code == "LEFT_STICK_X" && value < 0) {
 
@@ -123,7 +123,7 @@ var Menu = (function(){
 			GAME = new MainColorTest();
 		else
 			return false;
-			//GAME = new Empty;
+		//GAME = new Empty;
 
 		return true;
 	}
@@ -135,7 +135,7 @@ var Menu = (function(){
 		this.width = w;
 		this.height = h;
 
-		var imageLocation = (this.description === "") ? "empty" : this.name;
+		let imageLocation = (this.description === "") ? "empty" : this.name;
 		this.img = new Image();
 		this.img.src = "games/preview/" + imageLocation + ".png";
 		this.loaded = false;
@@ -164,7 +164,7 @@ var Menu = (function(){
 
 			context.textAlign = 'center';
 			if (this.name === games[currGame].name) {
-				var description = (this.description === "") ? "This Game is not implemented yet, come back later." : this.description;
+				let description = (this.description === "") ? "This Game is not implemented yet, come back later." : this.description;
 				context.fillText(description, WIDTH / 2, 50);
 
 				if (currGame === MENU.currActiveGame) {

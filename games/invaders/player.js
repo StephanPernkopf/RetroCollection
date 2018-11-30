@@ -1,13 +1,13 @@
-var Player = (function(){
-	var lives;
-	var speed = 2.5;
+var Player = (function() {
+	let lives;
+	let speed = 2.5;
 
 	Player = function() {
 		lives = 5;
 		this.size = 25;
 
-		var x = WIDTH / 2 - this.size;
-		var y = HEIGHT - (this.size + 20);
+		let x = WIDTH / 2 - this.size;
+		let y = HEIGHT - (this.size + 20);
 		this.location = new MathLib.Point(x, y); // location is the center of player-object
 		this.color = 'rgb(0, 0, 0)';
 		this.bullet = undefined;
@@ -27,7 +27,7 @@ var Player = (function(){
 	}
 
 	Player.prototype.move = function() {
-		var newX = this.location.x + this.xMovement * speed;
+		let newX = this.location.x + this.xMovement * speed;
 
 		if (newX - this.size > 0 && newX + this.size < WIDTH) {
 			this.location.x = newX;

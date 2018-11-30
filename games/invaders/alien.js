@@ -1,6 +1,6 @@
 var Alien = (function() {
 
-	var speed = 20;
+	let speed = 20;
 
 	Alien = function(x, y) {
 		this.location = new MathLib.Point(x, y); // center
@@ -11,10 +11,10 @@ var Alien = (function() {
 
 	Alien.prototype.intersects = function(point, halfSize) {
 		if (point != undefined) {
-			var hitX = point.x + halfSize > this.location.x - this.size / 2 &&
-						point.x - halfSize < this.location.x + this.size / 2;
-			var hitY = point.y + halfSize > this.location.y - this.size / 2
-						&& point.y - halfSize < this.location.y + this.size / 2;
+			let hitX = point.x + halfSize > this.location.x - this.size / 2 &&
+				point.x - halfSize < this.location.x + this.size / 2;
+			let hitY = point.y + halfSize > this.location.y - this.size / 2
+				&& point.y - halfSize < this.location.y + this.size / 2;
 
 			return hitX && hitY;
 		}
@@ -32,8 +32,8 @@ var Alien = (function() {
 	Alien.prototype.render = function(context) {
 		context.fillStyle = this.color;
 		context.fillRect(this.location.x - this.size / 2,
-						 this.location.y - this.size / 2,
-						 this.size, this.size);
+			this.location.y - this.size / 2,
+			this.size, this.size);
 	}
 
 	return Alien;

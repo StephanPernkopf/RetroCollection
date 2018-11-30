@@ -1,25 +1,25 @@
-var WIDTH = 0;
-var HEIGHT = 0;
-var GRID_SIZE = 128;
+let WIDTH = 0;
+let HEIGHT = 0;
+let GRID_SIZE = 128;
 
-var CTX;
-var GAME;
-var MENU;
-var SC;
-var FPS;
-var rAF = window.mozRequestAnimationFrame ||
+let CTX;
+let GAME;
+let MENU;
+let SC;
+let FPS;
+let rAF = window.mozRequestAnimationFrame ||
 	window.webkitRequestAnimationFrame ||
 	window.requestAnimationFrame;
 
-var DRAW_TIME_PREVIOUS = 0;
-var DRAW_TIME_LAG = 0;
-var UPDATE_INTERVAL = 0;
-var LAST_FRAME = 0;
-var COUNTER = 0;
-var AVG_TIMER;
+let DRAW_TIME_PREVIOUS = 0;
+let DRAW_TIME_LAG = 0;
+let UPDATE_INTERVAL = 0;
+let LAST_FRAME = 0;
+let COUNTER = 0;
+let AVG_TIMER;
 
 window.onload = function() {
-	var canvas = document.getElementById("playground");
+	let canvas = document.getElementById("playground");
 	CTX = canvas.getContext("2d");
 
 	WIDTH = Math.floor(canvas.width);
@@ -57,13 +57,13 @@ function loop() {
 	AVG_TIMER.endTick();
 	AVG_TIMER.startTick();
 
-	var current = performance.now();
+	let current = performance.now();
 	DRAW_TIME_LAG += Math.min(1, (current - DRAW_TIME_PREVIOUS) / 1000);
 
 	InputLib.processGamepadInput();
 
-	var safeguard = 0;
-	while(DRAW_TIME_LAG >= UPDATE_INTERVAL && safeguard < 8) {
+	let safeguard = 0;
+	while (DRAW_TIME_LAG >= UPDATE_INTERVAL && safeguard < 8) {
 
 		if (safeguard == 0) {
 			if (Math.floor(current / 1000) > COUNTER) {
@@ -91,8 +91,8 @@ function loop() {
 }
 
 var avgTimer = (function() {
-	var previousTick = 0;
-	var currentTick = 0;
+	let previousTick = 0;
+	let currentTick = 0;
 
 	avgTimer = function(maxLength) {
 		this.avgTimes = [];
@@ -102,7 +102,7 @@ var avgTimer = (function() {
 			this.maxLength = maxLength;
 		}
 
-		for (var i = 0; i < this.maxLength; i++) {
+		for (let i = 0; i < this.maxLength; i++) {
 			this.avgTimes[i] = 1;
 		}
 	}
@@ -119,8 +119,8 @@ var avgTimer = (function() {
 	}
 
 	avgTimer.prototype.getFPS = function() {
-		var sum = 0;
-		for (var i = 0; i < this.maxLength; i++) {
+		let sum = 0;
+		for (let i = 0; i < this.maxLength; i++) {
 			sum += this.avgTimes[i];
 		}
 

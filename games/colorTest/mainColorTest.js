@@ -1,44 +1,44 @@
-var DIRECTION_UP = 38;
-var DIRECTION_DOWN = 40;
-var DIRECTION_LEFT = 37;
-var DIRECTION_RIGHT = 39;
+let DIRECTION_UP = 38;
+let DIRECTION_DOWN = 40;
+let DIRECTION_LEFT = 37;
+let DIRECTION_RIGHT = 39;
 
 var MainColorTest = (function() {
-	var rectangles = [];
-	
+	let rectangles = [];
+
 	MainColorTest = function() {
 		GRID_SIZE = 64;
 		this.pause = false;
 
-		for (var i = 0; i < 11; i ++) {
-			for (var j = 0; j < 15; j++) {
+		for (let i = 0; i < 11; i++) {
+			for (let j = 0; j < 15; j++) {
 				rectangles.push(new Rect(GRID_SIZE * j, GRID_SIZE * i));
 			}
 		}
 	}
 
 	MainColorTest.prototype.binaryInput = function(id, btn_code) {
-		var rand = Math.random();
-		for (var i = 0; i < rectangles.length; i++) {
+		let rand = Math.random();
+		for (let i = 0; i < rectangles.length; i++) {
 			rectangles[i].changeColor(rand);
 		}
 	}
 
 	MainColorTest.prototype.rawInput = function(id, btn_code, value) {
-		var rand = Math.random();
-		for (var i = 0; i < rectangles.length; i++) {
+		let rand = Math.random();
+		for (let i = 0; i < rectangles.length; i++) {
 			rectangles[i].changeColor(rand);
 		}
 	}
 
 	MainColorTest.prototype.update = function() {
-		
+
 	}
 
 	MainColorTest.prototype.render = function(context) {
 		VisualLib.clearScreen(context);
 
-		for (var i = 0; i < rectangles.length; i++) {		
+		for (let i = 0; i < rectangles.length; i++) {
 			rectangles[i].draw(context);
 		}
 	}

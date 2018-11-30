@@ -36,8 +36,6 @@ var MainColorTest = (function() {
 	}
 
 	MainColorTest.prototype.render = function(context) {
-		VisualLib.clearScreen(context);
-
 		for (let i = 0; i < rectangles.length; i++) {
 			rectangles[i].draw(context);
 		}

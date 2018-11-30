@@ -90,7 +90,6 @@ var MainSnake = (function() {
 	}
 
 	MainSnake.prototype.render = function(context, lag) {
-		VisualLib.clearScreen(context);
 		snake.render(context);
 
 		for (let i = 0; i < fruits.length; i++) {

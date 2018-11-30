@@ -80,9 +80,11 @@ function loop() {
 		safeguard++;
 	}
 
+	VisualLib.clearScreen(CTX);
 	GAME.render(CTX);
 
 	if (GAME.pause) {
+		VisualLib.clearScreen(CTX);
 		MENU.render(CTX);
 	}
 

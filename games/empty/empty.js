@@ -12,7 +12,6 @@ var Empty = (function() {
 	}
 
 	Empty.prototype.render = function(context) {
-		VisualLib.clearScreen(context);
 	}
 
 	Empty.prototype.binaryInput = function(id, btn_code) {

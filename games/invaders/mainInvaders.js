@@ -147,7 +147,6 @@ var MainInvaders = (function() {
 	}
 
 	MainInvaders.prototype.render = function(context) {
-		VisualLib.clearScreen(context);
 		player.render(context);
 
 		if (player.bullet != undefined) {

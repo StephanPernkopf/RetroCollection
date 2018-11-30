@@ -118,6 +118,12 @@ body {
     40%, 80% {transform:rotate(10deg);}
 }
 
+@media only screen and (min-height: 840px) {
+    .alert {
+      display: none !important;
+    }
+}
+
 @media only screen and (max-height: 840px) {
     .alert {
         width: 640px;

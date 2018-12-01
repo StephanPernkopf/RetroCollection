@@ -1,12 +1,10 @@
-#WDP Projekt von Florian Mysliwietz (S1510307088)
+# WDP Projekt
 
 - Projekt-Name: RetroCollection
 - Projekt-Typ: Game
-- Gruppenprojekt: Ja (Stephan Pernkopf)
 - Externe Bibliotheken: Nein
-- Zeitaufwand: ~60h pro Person
 
-##Synopsis
+## Synopsis
 
 During a project in web-design and web-programming we make a collection of our favourite retro games in order to learn more about organizing code segments, developing in javascript and delving into APIs.
 

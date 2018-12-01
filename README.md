@@ -13,4 +13,5 @@ The key feature of this site is the usage of the Gamepad API, which allows us to
 This project is still in development and the latest version can be found on GitHub.
 
 [View Site](https://stephanpernkopf.github.io/RetroCollection/)
+
 [GitHub Repository](https://github.com/StephanPernkopf/RetroCollection/)
